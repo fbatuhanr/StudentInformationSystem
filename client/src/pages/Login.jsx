@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { clearUserData, setUser } from "../redux/features/UserSlice";
+import { toast } from 'react-toastify';
 
 const Login = () => {
 
@@ -26,9 +27,13 @@ const Login = () => {
              .then((response) => {
 
                 console.log(response.data);
-                if(response.data !== true) return;
-
-                dispatch(setUser({username}));
+                if(response.data !== true){
+                    toast.error("Login failed!");
+                }
+                else {
+                    toast.success("Login successful!");
+                    dispatch(setUser({username}));
+                }
             });
     }
 

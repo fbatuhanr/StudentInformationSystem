@@ -8,7 +8,7 @@ const Header = () => {
 
     const user = useSelector(({ UserSlice }) => UserSlice.user);
     console.log(user)
-    
+
     const handleLogout = async () => {
         dispatch(clearUserData());
     }
@@ -21,7 +21,7 @@ const Header = () => {
                         <Link to="/">Let's Chat Together</Link>
                     </div>
                     {
-                        !user ?
+                        !user.username ?
                             <>
                                 <div className="text-2xl font-semibold">
                                     <Link to="/login">Login</Link>
@@ -33,10 +33,7 @@ const Header = () => {
                             :
                             <>
                                 <div className="text-2xl font-semibold">
-                                    <Link to="/chat">Chat</Link>
-                                </div>
-                                <div className="text-2xl font-semibold">
-                                    <Link to="/profile">Profile</Link>
+                                    <Link to="/dashboard">Dashbord</Link>
                                 </div>
                                 <div className="text-2xl font-semibold text-[#F52525]">
                                     <button type="button" onClick={handleLogout}>Logout</button>
