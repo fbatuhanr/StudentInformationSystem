@@ -1,16 +1,16 @@
 import { Link } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux";
+import { clearUserData } from "../redux/features/UserSlice";
 
 const Header = () => {
 
-    // const user = useAppSelector((state) => state.user)
-    // console.log(user)
-    // const dispatch = useAppDispatch();
+    const dispatch = useDispatch();
 
-    const user = null
-
-    const handleLogout = () => {
-
-        // dispatch(clearUser());
+    const user = useSelector(({ UserSlice }) => UserSlice.user);
+    console.log(user)
+    
+    const handleLogout = async () => {
+        dispatch(clearUserData());
     }
 
     return (
