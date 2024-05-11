@@ -38,7 +38,7 @@ app.post('/login', (req, res) => {
 
     if (username && password) {
 
-        const sql = `SELECT * FROM Principal WHERE username='${username}' AND password='${password}'`;
+        const sql = `SELECT * FROM Principal WHERE USERNAME='${username}' AND PASSWORD='${password}'`;
         db.query(sql, (err, data) => {
             if(err) return res.json(err);
 
