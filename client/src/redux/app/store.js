@@ -1,15 +1,15 @@
 import {configureStore, combineReducers} from "@reduxjs/toolkit";
-import { persistReducer } from "redux-persist";
+import {persistReducer, persistStore} from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { thunk } from "redux-thunk";
+import {thunk} from "redux-thunk";
 
-import PreferencesSlice from "../features/PreferencesSlice.js"
-import UserSlice from "../features/UserSlice.js";
+import PreferencesSlice from "../features/PreferencesSlice"
+import UserSlice from "../features/UserSlice";
 
 const reducers = combineReducers({
     PreferencesSlice,
     UserSlice
-})
+});
 
 const persistConfig = {
     key: "root",
@@ -18,11 +18,10 @@ const persistConfig = {
     whitelist: ["PreferencesSlice", "UserSlice"]
 }
 
-const persistedReducer = persistReducer(persistConfig, reducers)
+const persistedReducer = persistReducer(persistConfig, reducers);
 
-const store = configureStore({
+export const store = configureStore({
     reducer: persistedReducer,
-    middleware: [thunk]
+    middleware: () => [thunk]
 })
-
-export default store
+export const persistor = persistStore(store)

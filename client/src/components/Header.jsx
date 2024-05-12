@@ -1,3 +1,4 @@
+import React from "react";
 import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux";
 import { clearUserData } from "../redux/features/UserSlice";
@@ -18,7 +19,7 @@ const Header = () => {
             <div className="max-w-6xl px-12 mx-auto">
                 <nav className="flex items-center gap-x-8 py-8">
                     <div className="flex-1 text-xl md:text-3xl font-bold">
-                        <Link to="/">Let's Chat Together</Link>
+                        <Link to="/">Student Information System</Link>
                     </div>
                     {
                         !user.username ?

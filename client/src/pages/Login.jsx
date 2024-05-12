@@ -14,7 +14,7 @@ const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const [username, setUsername] = useState("admin");
+    const [username, setUsername] = useState("emreolca");
     const [password, setPassword] = useState("123");
 
     const handleSubmit = async (e) => {
@@ -34,6 +34,9 @@ const Login = () => {
                     toast.success("Login successful!");
                     dispatch(setUser({username}));
                 }
+            }).catch((error) => {
+                console.log(error);
+                toast.error("Request Error!");
             });
     }
 
