@@ -34,7 +34,7 @@ const Header = () => {
                             :
                             <>
                                 <div className="text-2xl font-semibold">
-                                    <Link to="/dashboard">Dashbord</Link>
+                                    <Link to="/dashboard/overview">Dashbord</Link>
                                 </div>
                                 <div className="text-2xl font-semibold text-[#F52525]">
                                     <button type="button" onClick={handleLogout}>Logout</button>

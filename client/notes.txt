@@ -1,0 +1,2 @@
+for tailwind changes exec this:
+npx tailwindcss -i ./src/index.css -o ./src/style.css --watch

@@ -1,8 +1,8 @@
 {
-  "name": "std-information-system",
-  "productName": "std-information-system",
-  "version": "1.0.0",
-  "description": "My Electron application description",
+  "name": "student-information-system",
+  "productName": "Student Information System",
+  "version": "0.1",
+  "description": "student information system with electronjs & react & nodejs & mysql",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
@@ -29,6 +29,7 @@
     "electron": "30.0.3",
     "node-loader": "^2.0.0",
     "postcss": "8.1",
+    "postcss-loader": "^8.1.1",
     "style-loader": "^3.3.4",
     "tailwindcss": "^3.4.3"
   },

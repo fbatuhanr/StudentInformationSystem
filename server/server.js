@@ -12,12 +12,13 @@ app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.listen(3001, () => {
+app.listen(4000, () => {
     console.log("listening")
 })
 
 const db = mysql.createConnection({
     host: "localhost",
+    port: 3306,
     user: "root",
     password: "",
     database: "StudentInformationSystem",

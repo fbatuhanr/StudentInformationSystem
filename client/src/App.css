@@ -1,0 +1,3 @@
+#dashboard-nav li:has(a.active) {
+    background-color: #341C8B;
+}
