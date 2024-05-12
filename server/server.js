@@ -52,6 +52,14 @@ app.post('/login', (req, res) => {
 
 
 /* FETCH DATA */
+app.get('/cities', (req, res) => {
+    const sql = "SELECT NAME FROM City";
+    db.query(sql, (err, data) => {
+        if(err) return res.json(err);
+
+        return res.json(data);
+    })
+})
 /*
 app.get('/thesis', (req, res) => {
     const sql = "SELECT *, DATE_FORMAT(SubmissionDate, \"%Y-%m-%d\") AS SubmissionDate FROM Thesis";
