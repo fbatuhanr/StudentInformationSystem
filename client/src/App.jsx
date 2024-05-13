@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import "./App.css"
 
 import { ToastContainer } from "react-toastify"
@@ -9,6 +9,8 @@ import {
   Routes,
   Route
 } from "react-router-dom"
+
+import LoadingSpinner from "./components/LoadingSpinner.jsx"
 
 import Header from "./components/Header.jsx"
 import Footer from "./components/Footer.jsx"
@@ -32,8 +34,11 @@ import Classes from "./pages/Classes.jsx"
 import Attendance from "./pages/Attendance.jsx"
 import Canteen from "./pages/Canteen.jsx"
 
+import { useSelector } from "react-redux";
 
 function App() {
+
+  const isLoading = useSelector(({ StatusSlice }) => StatusSlice.isLoading);
 
   return (
     <div className="bg-[rgb(13,13,13)] text-white font-outfit overflow-x-hidden">
@@ -61,7 +66,10 @@ function App() {
         </Layout>
         <Footer />
       </HashRouter>
-      <ToastContainer />
+      <ToastContainer autoClose={3000} pauseOnHover={false} />
+      {
+        isLoading && <LoadingSpinner />
+      }
     </div>
   );
 }

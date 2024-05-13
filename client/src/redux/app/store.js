@@ -3,11 +3,11 @@ import {persistReducer, persistStore} from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import {thunk} from "redux-thunk";
 
-import PreferencesSlice from "../features/PreferencesSlice"
+import StatusSlice from "../features/StatusSlice"
 import UserSlice from "../features/UserSlice";
 
 const reducers = combineReducers({
-    PreferencesSlice,
+    StatusSlice,
     UserSlice
 });
 
@@ -15,7 +15,7 @@ const persistConfig = {
     key: "root",
     timeout: 100,
     storage,
-    whitelist: ["PreferencesSlice", "UserSlice"]
+    whitelist: ["StatusSlice", "UserSlice"]
 }
 
 const persistedReducer = persistReducer(persistConfig, reducers);

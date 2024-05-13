@@ -1,8 +1,19 @@
 const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
-const app = express()
 const bodyParser = require('body-parser');
+const multer = require('multer')
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads')
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname)
+    }
+})
+const upload = multer({ storage: storage })
+
+const app = express()
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -28,20 +39,21 @@ const db = mysql.createConnection({
 app.get('/', (req, res) => {
     return res.json("From Backend Side")
 })
+app.use('/uploads', express.static(__dirname + '/uploads'))
+
 
 app.post('/login', (req, res) => {
 
     console.log(req.body)
-    let username = req.body.username;
-    let password = req.body.password;
-    console.log(username)
-    console.log(password)
+
+    const { username, password } = req.body
+    console.log(username, password)
 
     if (username && password) {
 
-        const sql = `SELECT * FROM Principal WHERE USERNAME='${username}' AND PASSWORD='${password}'`;
+        const sql = `SELECT * FROM Principal WHERE Username='${username}' AND Password='${password}'`;
         db.query(sql, (err, data) => {
-            if(err) return res.json(err);
+            if (err) return res.json(err);
 
             return data.length > 0 ? res.send(true) : res.send(false);
         })
@@ -52,42 +64,89 @@ app.post('/login', (req, res) => {
 
 
 /* FETCH DATA */
-app.get('/cities', (req, res) => {
-    const sql = "SELECT NAME FROM City";
+app.get('/city', (req, res) => {
+    const sql = "SELECT * FROM City";
+    db.query(sql, (err, data) => {
+        if (err) return res.json(err);
+
+        return res.json(data);
+    })
+})
+app.get('/class', (req, res) => {
+    const sql = "SELECT * FROM Class";
+    db.query(sql, (err, data) => {
+        if (err) return res.json(err);
+
+        return res.json(data);
+    })
+})
+app.get('/student', (req, res) => {
+    const sql = "SELECT * FROM Student";
+    db.query(sql, (err, data) => {
+        if (err) return res.json(err);
+
+        return res.json(data);
+    })
+})
+app.get('/parent', (req, res) => {
+    const sql = "SELECT * FROM Parent";
+    db.query(sql, (err, data) => {
+        if (err) return res.json(err);
+
+        return res.json(data);
+    })
+})
+app.get('/class/:id', (req, res) => {
+
+    const classId = req.params.id;
+
+    const sql = `SELECT * FROM Class WHERE ID='${classId}'`;
     db.query(sql, (err, data) => {
         if(err) return res.json(err);
 
         return res.json(data);
     })
 })
-/*
-app.get('/thesis', (req, res) => {
-    const sql = "SELECT *, DATE_FORMAT(SubmissionDate, \"%Y-%m-%d\") AS SubmissionDate FROM Thesis";
+app.get('/parent/:id', (req, res) => {
+
+    const parentId = req.params.id;
+    
+    const sql = `SELECT * FROM Parent WHERE ID='${parentId}'`;
     db.query(sql, (err, data) => {
         if(err) return res.json(err);
 
         return res.json(data);
     })
 })
-app.get('/thesis/:id', (req, res) => {
-
-    const thesisNo = req.params.id;
-
-    const sql = `SELECT * FROM Thesis WHERE ThesisNo='${thesisNo}'`;
-    db.query(sql, (err, data) => {
-        if(err) return res.json(err);
-
-        return res.json(data);
-    })
-})
-*/
 
 /* INSERT */
-/*
-app.post('/person', (req, res) => {
+app.post('/student', upload.single('photo'), (req, res) => {
+
+    console.log(req.file)
+    const { parentName, parentPhoneNumber, parentEmail } = req.body
+
+    const parentSql = `INSERT INTO Parent (Name, PhoneNumber, Email) VALUES ('${parentName}', '${parentPhoneNumber}', '${parentEmail}')`;
+
+    db.query(parentSql, (error, result) => {
+        if (error) throw error;
+
+        const { name, number, classId, address, cityId } = req.body
+        const parentId = result.insertId;
+        const photo = req.file;
+
+        const studentSql = `INSERT INTO Student (Name, Number, ClassID, Address, Photo, CityID, ParentID) VALUES ('${name}', ${number}, ${classId}, '${address}', '${photo.path}', ${cityId}, ${parentId})`;
+
+        db.query(studentSql, (error, result) => {
+            if (error) throw error;
+            return res.send(true);
+        });
+    });
+});
+
+app.post('/class', (req, res) => {
 
     const { name } = req.body;
-    const sql = `INSERT INTO Person (Name) VALUES ('${name}')`;
+    const sql = `INSERT INTO Class (Name) VALUES ('${name}')`;
 
     db.query(sql, (err, data) => {
         if (err) throw err;
@@ -96,16 +155,14 @@ app.post('/person', (req, res) => {
         return res.send(true);
     });
 });
-*/
 
 /* UPDATE */
-/*
-app.put('/person/:id', (req, res) => {
+app.put('/class/:id', (req, res) => {
 
-    const personId = req.params.id;
+    const classId = req.params.id;
     const { name } = req.body;
 
-    const sql = `UPDATE Person SET Name='${name}' WHERE PersonID='${personId}'`;
+    const sql = `UPDATE Class SET Name='${name}' WHERE ID='${classId}'`;
     db.query(sql, (err, data) => {
         if (err) throw err;
 
@@ -113,15 +170,13 @@ app.put('/person/:id', (req, res) => {
         return res.send(true);
     });
 });
-*/
 
 /* DELETE */
-/*
-app.delete('/thesis/:id', (req, res) => {
+app.delete('/class/:id', (req, res) => {
 
-    const thesisNo = req.params.id;
+    const classId = req.params.id;
 
-    const sql = `DELETE FROM Thesis WHERE ThesisNo='${thesisNo}'`;
+    const sql = `DELETE FROM Class WHERE ID='${classId}'`;
     db.query(sql, (err, result) => {
         if (err) throw err;
 
@@ -129,4 +184,3 @@ app.delete('/thesis/:id', (req, res) => {
         return res.send(true);
     });
 });
-*/

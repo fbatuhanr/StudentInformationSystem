@@ -36,8 +36,11 @@ const Header = () => {
                                 <div className="text-2xl font-semibold">
                                     <Link to="/dashboard/overview">Dashbord</Link>
                                 </div>
-                                <div className="text-2xl font-semibold text-[#F52525]">
-                                    <button type="button" onClick={handleLogout}>Logout</button>
+                                <div className="relative">
+                                    <div className="text-2xl font-semibold text-[#F52525]">
+                                        <button type="button" onClick={handleLogout}>Logout</button>
+                                    </div>
+                                    <span className="absolute -right-2 -top-2 text-[0.7rem] italic text-[#ffffff62]">{user.username}</span>
                                 </div>
                             </>
                     }
