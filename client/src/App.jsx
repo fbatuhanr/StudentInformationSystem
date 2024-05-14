@@ -25,16 +25,18 @@ import DashboardLayout from "./pages/DashboardLayout.jsx"
 
 import Dashboard from "./pages/Dashboard.jsx"
 
-import BrowseStudent from "./pages/BrowseStudent.jsx"
+import BrowseStudents from "./pages/BrowseStudents.jsx"
 import RegisterStudent from "./pages/RegisterStudent.jsx"
 
-import BrowseTeacher from "./pages/BrowseTeacher.jsx"
+import BrowseTeachers from "./pages/BrowseTeachers.jsx"
 import RegisterTeacher from "./pages/RegisterTeacher.jsx"
 import Classes from "./pages/Classes.jsx"
 import Attendance from "./pages/Attendance.jsx"
 import Canteen from "./pages/Canteen.jsx"
 
 import { useSelector } from "react-redux";
+import EditStudent from "./pages/EditStudent.jsx"
+import EditTeacher from "./pages/EditTeacher.jsx"
 
 function App() {
 
@@ -46,16 +48,19 @@ function App() {
         <Header />
         <Layout>
           <Routes>
+            <Route path="/" element={<Home />} />
             <Route path="/login" element={<GuestGuard><Login /></GuestGuard>} />
 
             <Route path="/dashboard" element={<AuthGuard><DashboardLayout /></AuthGuard>}>
               <Route path="overview" element={<Dashboard />} />
 
-              <Route path="browse-student" element={<BrowseStudent />} />
+              <Route path="browse-students" element={<BrowseStudents />} />
               <Route path="register-student" element={<RegisterStudent />} />
+              <Route path="edit-student/:id" element={<EditStudent />} />
 
-              <Route path="browse-teacher" element={<BrowseTeacher />} />
+              <Route path="browse-teachers" element={<BrowseTeachers />} />
               <Route path="register-teacher" element={<RegisterTeacher />} />
+              <Route path="edit-teacher/:id" element={<EditTeacher />} />
 
               <Route path="classes" element={<Classes />} />
               <Route path="attendance" element={<Attendance />} />
@@ -68,7 +73,7 @@ function App() {
       </HashRouter>
       <ToastContainer autoClose={3000} pauseOnHover={false} />
       {
-        isLoading && <LoadingSpinner />
+        // isLoading && <LoadingSpinner />
       }
     </div>
   );

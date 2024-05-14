@@ -88,7 +88,11 @@ const Classes = () => {
             {
               classes.length > 0 &&
                 <>
-                  <h3 className="text-xl font-semibold ps-2 mb-1">Class List</h3>
+                  <h3 className="text-xl font-semibold ps-2 mb-3">Class List</h3>
+                  <div className="flex justify-between text-sm font-medium px-3">
+                    <h4>Name</h4>
+                    <h4>Action</h4>
+                  </div>
                   {
                     classes.map((cls, index) =>
                       <div className="flex items-center gap-x-5 my-1">

@@ -1,3 +1,9 @@
 #dashboard-nav li:has(a.active) {
     background-color: #341C8B;
 }
+#dashboard-nav li:hover h6 {
+    color: #ffffff;
+}
+#dashboard-nav li:has(a.active) h6 {
+    color: #ffffff;
+}

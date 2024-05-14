@@ -4,16 +4,20 @@ import { serverAddress } from '../settings'
 
 import HumanImg4 from "../assets/human-4.png"
 
-import { useForm } from "react-hook-form"
+import Select from 'react-select'
+import { Controller, useForm } from "react-hook-form"
 import { useDispatch } from 'react-redux'
 import { setIsLoading } from '../redux/features/StatusSlice'
+import { useNavigate } from 'react-router-dom'
 
 const RegisterStudent = () => {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [cities, setCities] = useState([])
   const [classes, setClasses] = useState([])
+  const [canteenProducts, setCanteenProducts] = useState([])
 
   useEffect(() => {
 
@@ -30,30 +34,38 @@ const RegisterStudent = () => {
 
     fetchData("city").then(data => setCities(data))
     fetchData("class").then(data => setClasses(data))
+    fetchData("canteen").then(data => setCanteenProducts(data))
   }, [])
 
   const {
     register,
     handleSubmit,
-    watch,
+    control,
     formState: { errors },
   } = useForm()
 
   const onSubmit = async (data) => {
     console.log(data)
-    if(!data) return
+    if (!data) return
 
     dispatch(setIsLoading(true))
 
-    const resultData = { ...data, photo: data.photo[0] }
+    const resultData = { 
+      ...data, 
+      photo: data.photo[0],
+      restrictedProducts: data.restrictedProducts.map(i => i.value)
+    }
     console.log(resultData)
 
     try {
       const headers = { 'Content-Type': 'multipart/form-data' };
       const response = await axios.post(`${serverAddress}/student`, resultData, { headers });
       console.log(response)
+
+      dispatch(setIsLoading(false))
+      navigate("/dashboard/browse-students")
     }
-    catch(error){
+    catch (error) {
       console.log(error)
     }
 
@@ -136,6 +148,49 @@ const RegisterStudent = () => {
               <h3 className="text-xl font-semibold ps-2 mb-1">Email</h3>
               <input type="text" placeholder="type here..." {...register("parentEmail", { required: true })}
                 className="min-w-64 bg-[#0D0D0D] text-[#A1A1A1] px-4 py-3 rounded-2xl" />
+            </div>
+          </div>
+
+        </div>
+
+        <hr className="h-3 bg-[rgb(13,13,13)] border-0" />
+
+        <div className="px-12 py-8 font-outfit">
+          <h2 className="text-2xl font-bold mt-2">Canteen Informations</h2>
+          <div className="px-4 py-8">
+            <div className="flex justify-between gap-x-12">
+              <div className="basis-1/2">
+                <h3 className="text-xl font-semibold ps-2 mb-1">Restricted Products</h3>
+                {
+                  canteenProducts &&
+                  <Controller
+                    control={control}
+                    name="restrictedProducts"
+                    render={({ field: { onChange, value } }) => (
+                      <Select
+                        isMulti
+                        name="colors"
+                        options={canteenProducts.map(i => { return { label: i.Name, value: i.ID } })}
+                        value={value ? value : []}
+                        onChange={onChange}
+                        classNames={{
+                          control: () => '!bg-[#0D0D0D] !border-none !rounded-xl !py-1.5',
+                          menu: () => '!bg-[#0D0D0D] !border-none',
+                          option: () => '!bg-[#29156C] hover:!bg-[#3c209a] !cursor-pointer',
+                          multiValue: () => '!bg-[#4F22F2]',
+                          multiValueLabel: () => '!bg-[#4F22F2] !text-[#ffffff] !pe-2',
+                          multiValueRemove: () => '!bg-[#20183F] !text-[#ffffff]',
+                        }}
+                      />
+                    )}
+                  />
+                }
+              </div>
+              <div className="basis-1/2">
+                <h3 className="text-xl font-semibold ps-2 mb-1">Balance</h3>
+                <input type="text" placeholder="type here..." {...register("balance", { required: true })}
+                  className="w-full bg-[#0D0D0D] text-[#A1A1A1] px-4 py-3 rounded-2xl" />
+              </div>
             </div>
           </div>
 

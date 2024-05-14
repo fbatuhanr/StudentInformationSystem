@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, protocol } = require('electron');
 const path = require('node:path');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -13,6 +13,7 @@ const createWindow = () => {
     height: 720,
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
+      webSecurity: false
     },
   });
 
@@ -27,6 +28,13 @@ const createWindow = () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
+
+  protocol.handle('my-protocol', async (request, callback) => {
+    const filePath = request.url.replace(`my-protocol://`, '');
+    console.log(filePath)
+    return net.fetch(filePath);
+  });
+
   createWindow();
 
   // On OS X it's common to re-create a window in the app when the
