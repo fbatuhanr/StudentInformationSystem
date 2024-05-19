@@ -72,7 +72,13 @@ const Classes = () => {
 
     axios.delete(`${serverAddress}/class/${id}`)
       .then((response) => {
+        
         console.log(response)
+
+        if (response.data.error){
+          Swal.fire({title: "Error", text: response.data.error, icon: "error"})
+          return
+        }
         window.location.reload();
       })
       .catch(error => console.error(error));
@@ -113,7 +119,7 @@ const Classes = () => {
             }
           </div>
 
-          <div className="md:w-3/5 mx-auto mt-8">
+          <div className="md:w-3/5 mx-auto my-8">
             <h3 className="text-xl font-semibold ps-2 mb-1">Add New Class</h3>
             <div className="flex items-center gap-x-5">
               <input type="text" placeholder="type here..." value={newClass} onChange={(e) => setNewClass(e.target.value)}

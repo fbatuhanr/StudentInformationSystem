@@ -86,7 +86,13 @@ const Canteen = () => {
 
     axios.delete(`${serverAddress}/canteen/${id}`)
       .then((response) => {
+
         console.log(response)
+
+        if (response.data.error){
+          Swal.fire({title: "Error", text: response.data.error, icon: "error"})
+          return
+        }
         window.location.reload();
       })
       .catch(error => console.error(error));
@@ -140,7 +146,7 @@ const Canteen = () => {
             }
           </div>
 
-          <div className="md:w-3/5 mx-auto mt-8">
+          <div className="md:w-3/5 mx-auto my-8">
             <h3 className="text-xl font-semibold ps-2 mb-3">Add New Product</h3>
             <div className="flex justify-between text-sm font-medium px-3">
               <h4>Name</h4>

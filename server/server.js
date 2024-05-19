@@ -1,5 +1,6 @@
 const express = require('express');
 const mysql = require('mysql');
+const mysqlErrorKeys = require('mysql-error-keys');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const multer = require('multer')
@@ -394,8 +395,17 @@ app.delete('/class/:id', (req, res) => {
     const classId = req.params.id;
 
     const sql = `DELETE FROM Class WHERE ID='${classId}'`;
-    db.query(sql, (err, result) => {
-        if (err) throw err;
+    db.query(sql, (error, result) => {
+
+        if(error){
+            if(error.code == mysqlErrorKeys.ER_ROW_IS_REFERENCED || error.code == mysqlErrorKeys.ER_ROW_IS_REFERENCED_2){
+            
+                return res.send({error: "The class could not be deleted because it was selected by student or teacher!"})
+            }
+            else {
+                throw error;
+            }
+        }
 
         console.log("Number of records deleted: " + result.affectedRows);
         return res.send(true);
@@ -406,9 +416,17 @@ app.delete('/canteen/:id', (req, res) => {
     const productId = req.params.id;
 
     const sql = `DELETE FROM Canteen WHERE ID='${productId}'`;
-    db.query(sql, (err, result) => {
-        if (err) throw err;
+    db.query(sql, (error, result) => {
 
+        if(error){
+            if(error.code == mysqlErrorKeys.ER_ROW_IS_REFERENCED || error.code == mysqlErrorKeys.ER_ROW_IS_REFERENCED_2){
+            
+                return res.send({error: "The product could not be deleted because it was selected as a restricted product!"})
+            }
+            else {
+                throw error;
+            }
+        }
         console.log("Number of records deleted: " + result.affectedRows);
         return res.send(true);
     });
