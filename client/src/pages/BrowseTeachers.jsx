@@ -63,7 +63,7 @@ const BrowseTeachers = () => {
   const handleRemoveButton = async (id) => {
 
     const swalResult = await Swal.fire({
-      title: "Do you want to delete it?",
+      title: "Do you want to delete teacher?",
       showCancelButton: true,
       confirmButtonText: "Delete",
       confirmButtonColor: "#F52525"
@@ -79,19 +79,22 @@ const BrowseTeachers = () => {
   }
 
   return (
-    <div className="py-8">
-
+    <div className="pb-12">
+      <div className="py-10">
+        <h2 className="text-[1.7rem] font-bold text-center">Browse Teachers</h2>
+        <div className="h-0.5 mt-1 bg-[#cccccc] w-64 mx-auto"></div>
+      </div>
       {
         teachers && teachers.length ?
           <>
-            <div className="grid grid-cols-4 items-center mb-2 py-1 font-semibold bg-[#1D0E50] text-center text-lg">
+            <div className="grid grid-cols-4 items-center mb-2 py-1.5 font-semibold bg-[#1D0E50] text-center text-lg">
               <h5>Name</h5>
               <h5 className="col-span-2">Classes</h5>
               <h5 className="text-base font-medium italic">Action</h5>
             </div>
             {
               teachers.map((teacher, index) =>
-                <div key={index} className="grid grid-cols-4 justify-items-center items-center my-2 py-2 font-semibold bg-[#5726FC] text-center">
+                <div key={index} className="grid grid-cols-4 justify-items-center items-center my-1.5 py-3 font-semibold bg-[#5726FC] text-center">
                   <span>
                     {teacher.Name}
                   </span>
@@ -107,7 +110,7 @@ const BrowseTeachers = () => {
                   </span>
                   <span className="flex gap-x-2">
                     <Link to={`/dashboard/edit-teacher/${teacher.TeacherID}`}><FaEdit className="mx-auto text-2xl" /></Link>
-                    <button type="button" onClick={() => handleRemoveButton(teacher.TeacherID)}><FaEraser className="mx-auto text-lg text-red-600" /></button>
+                    <button type="button" onClick={() => handleRemoveButton(teacher.TeacherID)}><FaEraser className="mx-auto text-xl text-red-500" /></button>
                   </span>
                 </div>
               )

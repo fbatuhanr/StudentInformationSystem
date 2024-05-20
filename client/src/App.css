@@ -1,5 +1,6 @@
-#dashboard-nav li:has(a.active) {
+#dashboard-nav > ul > li:has(a.active) {
     background-color: #341C8B;
+    border-bottom: 1px solid #cccccc;
 }
 #dashboard-nav li:hover h6 {
     color: #ffffff;

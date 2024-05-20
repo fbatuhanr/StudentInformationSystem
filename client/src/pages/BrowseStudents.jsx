@@ -33,7 +33,7 @@ const BrowseStudents = () => {
   const handleRemoveButton = async (id) => {
 
     const swalResult = await Swal.fire({
-      title: "Do you want to delete it?",
+      title: "Do you want to delete student?",
       showCancelButton: true,
       confirmButtonText: "Delete",
       confirmButtonColor: "#F52525"
@@ -49,11 +49,15 @@ const BrowseStudents = () => {
   }
 
   return (
-    <div className="py-8">
+    <div className="pb-12">
+      <div className="py-10">
+        <h2 className="text-[1.7rem] font-bold text-center">Browse Students</h2>
+        <div className="h-0.5 mt-1 bg-[#cccccc] w-64 mx-auto"></div>
+      </div>
       {
         students && students.length ?
           <>
-            <div className="grid grid-cols-6 items-center mb-2 py-1 font-semibold bg-[#1D0E50] text-center text-lg">
+            <div className="grid grid-cols-6 items-center mb-2 py-1.5 font-semibold bg-[#1D0E50] text-center text-lg">
               <h5>Photo</h5>
               <h5>Number</h5>
               <h5>Name</h5>
@@ -63,7 +67,7 @@ const BrowseStudents = () => {
             </div>
             {
               students && students.map((student, index) =>
-                <div key={index} className="grid grid-cols-6 justify-items-center items-center my-2 py-2 font-semibold bg-[#5726FC] text-center">
+                <div key={index} className="grid grid-cols-6 justify-items-center items-center my-1.5 py-2 font-semibold bg-[#5726FC] text-center">
                   <span className="w-12 h-12 overflow-hidden rounded-full flex items-center justify-center">
                     <img src={`${serverAddress}/${student.Photo}`} />
                   </span>
@@ -85,7 +89,7 @@ const BrowseStudents = () => {
                   </span>
                   <span className="flex gap-x-2">
                     <Link to={`/dashboard/edit-student/${student.ID}`}><FaEdit className="mx-auto text-2xl" /></Link>
-                    <button type="button" onClick={() => handleRemoveButton(student.ID)}><FaEraser className="mx-auto text-lg text-red-600" /></button>
+                    <button type="button" onClick={() => handleRemoveButton(student.ID)}><FaEraser className="mx-auto text-xl text-red-500" /></button>
                   </span>
                 </div>
               )

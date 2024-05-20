@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { serverAddress } from '../settings'
 
-import HumanImg4 from "../assets/human-4.png"
+import HumanImg2 from "../assets/human-2.png"
 
 import Select from 'react-select'
 import { Controller, useForm } from "react-hook-form"
@@ -67,10 +67,14 @@ const RegisterTeacher = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="py-10">
+        <h2 className="text-[1.7rem] font-bold text-center">Register Teacher</h2>
+        <div className="h-0.5 mt-1 bg-[#cccccc] w-64 mx-auto"></div>
+      </div>
       <div className="relative">
-        <div className="px-12 py-8 font-outfit">
+        <div className="px-12 pb-8 font-outfit">
           <h2 className="text-2xl font-bold mt-2">Teacher Informations</h2>
-          <div className="px-4 py-8">
+          <div className="px-4 py-10">
             <div className="flex justify-center gap-x-2 px-12">
               <div className="basis-1/2">
                 <h3 className="text-xl font-semibold ps-2 mb-1">Name</h3>
@@ -117,8 +121,8 @@ const RegisterTeacher = () => {
         </button>
       </div>
 
-      <div className="absolute top-[35%] -right-16">
-        <img src={HumanImg4} className="w-42" />
+      <div className="absolute -bottom-5 -right-20">
+        <img src={HumanImg2} className="w-56" />
       </div>
     </form>
   )

@@ -50,8 +50,8 @@ const RegisterStudent = () => {
 
     dispatch(setIsLoading(true))
 
-    const resultData = { 
-      ...data, 
+    const resultData = {
+      ...data,
       photo: data.photo[0],
       restrictedProducts: data.restrictedProducts.map(i => i.value)
     }
@@ -74,9 +74,13 @@ const RegisterStudent = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} method="post" enctype="multipart/form-data">
+      <div className="py-10">
+        <h2 className="text-[1.7rem] font-bold text-center">Register Student</h2>
+        <div className="h-0.5 mt-1 bg-[#cccccc] w-64 mx-auto"></div>
+      </div>
       <div className="relative">
-        <div className="px-12 py-8 font-outfit">
-          <h2 className="text-2xl font-bold mt-2">Student Informations</h2>
+        <div className="px-12 pb-8 font-outfit">
+          <h2 className="text-2xl font-semibold mt-2">Student Informations</h2>
           <div className="px-4 py-8">
             <div className="flex justify-between gap-x-2">
               <div className="basis-1/3">
