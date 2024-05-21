@@ -5,12 +5,12 @@ import ellipseSmall from "../assets/ellipse-small.png"
 
 const DashboardLayout = () => {
   return (
-    <div className="py-8 flex flex-col gap-y-6 justify-center items-center bg-blur-ellipse-small bg-[center_top_-1rem] bg-[length:200px] bg-no-repeat">
+    <div className="py-8 flex flex-col gap-y-4 justify-center items-center bg-blur-ellipse-small bg-[center_top_-1rem] bg-[length:200px] bg-no-repeat">
       <div className="relative">
         <h1 className="text-5xl font-bold relative z-10">Dashboard</h1>
         <img src={ellipseSmall} className="w-72 absolute -top-20 left-0 right-0 mx-auto" />
       </div>
-      <div className="relative w-full max-w-4xl min-h-[400px] rounded-xl bg-gradient-to-br from-[#4F22F2] to-[#20183F]">
+      <div className="relative w-full max-w-4xl rounded-xl bg-gradient-to-br from-[#4F22F2] to-[#20183F]">
 
         <nav id="dashboard-nav" className="w-full bg-[#29156C] rounded-t-xl">
           <ul className="flex justify-between h-full [&>li]:flex [&>li]:items-center [&>li]:px-5 [&>li]:py-2.5 text-[#B8B8B8] [&_a:hover]:text-white  [&_a.active]:text-white font-outfit font-bold">
@@ -35,7 +35,7 @@ const DashboardLayout = () => {
           </ul>
         </nav>
 
-        <div>
+        <div id="dashboard-content" className="h-[410px] overflow-x-hidden overflow-y-auto border-l-2 border-b-2 border-r-2 border-[#29156C] rounded-b-xl">
           <Outlet />
         </div>
       </div>

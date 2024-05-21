@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { serverAddress } from '../settings'
 
-import HumanImg4 from "../assets/human-4.png"
+import HumanImg2 from "../assets/human-2.png"
 
 import Select from 'react-select'
 import { Controller, useForm } from "react-hook-form"
@@ -99,10 +99,16 @@ const EditTeacher = () => {
   return (<>{
     teacher &&
     <form onSubmit={handleSubmit(onSubmit)}>
+
+      <div className="py-10">
+        <h2 className="text-[1.7rem] font-bold text-center">Register Teacher</h2>
+        <div className="h-0.5 mt-1 bg-[#cccccc] w-64 mx-auto"></div>
+      </div>
+
       <div className="relative">
-        <div className="px-12 py-8 font-outfit">
-          <h2 className="text-2xl font-bold mt-2">Edit Teacher Informations</h2>
-          <div className="px-4 py-8">
+        <div className="px-12 pb-8 font-outfit">
+          <h2 className="text-2xl font-bold">Edit Teacher Informations</h2>
+          <div className="py-6">
             <div className="flex justify-center gap-x-2 px-12">
               <div className="basis-1/2">
                 <h3 className="text-xl font-semibold ps-2 mb-1">Name</h3>
@@ -114,44 +120,41 @@ const EditTeacher = () => {
                 {
                   classes && classOptions && teacherClasses &&
                   <Controller
-                      control={control}
-                      name="classes"
-                      defaultValue={teacherClasses.map(i => classOptions.find(j => j.value == i))}
-                      render={({ field: { onChange, value } }) => (
-                        <Select
-                          isMulti
-                          name="classes"
-                          options={classOptions}
-                          onChange={onChange}
-                          value={value ? value : []}
-                          classNames={{
-                            control: () => '!bg-[#0D0D0D] !border-none !rounded-xl !py-1.5',
-                            menu: () => '!bg-[#0D0D0D] !border-none',
-                            option: () => '!bg-[#29156C] hover:!bg-[#3c209a] !cursor-pointer',
-                            multiValue: () => '!bg-[#4F22F2]',
-                            multiValueLabel: () => '!bg-[#4F22F2] !text-[#ffffff] !pe-2',
-                            multiValueRemove: () => '!bg-[#20183F] !text-[#ffffff]',
-                          }}
-                        />
-                      )}
-                    />
+                    control={control}
+                    name="classes"
+                    defaultValue={teacherClasses.map(i => classOptions.find(j => j.value == i))}
+                    render={({ field: { onChange, value } }) => (
+                      <Select
+                        isMulti
+                        name="classes"
+                        options={classOptions}
+                        onChange={onChange}
+                        value={value ? value : []}
+                        classNames={{
+                          control: () => '!bg-[#0D0D0D] !border-none !rounded-xl !py-1.5',
+                          menu: () => '!bg-[#0D0D0D] !border-none',
+                          option: () => '!bg-[#29156C] hover:!bg-[#3c209a] !cursor-pointer',
+                          multiValue: () => '!bg-[#4F22F2]',
+                          multiValueLabel: () => '!bg-[#4F22F2] !text-[#ffffff] !pe-2',
+                          multiValueRemove: () => '!bg-[#20183F] !text-[#ffffff]',
+                        }}
+                      />
+                    )}
+                  />
                 }
               </div>
+            </div>
+            <div className="flex justify-center mt-8">
+              <button type="submit" className="min-w-96 bg-[#DBBA12] hover:bg-[#d9bf3b] rounded-2xl py-3 text-xl [text-shadow:1px_1px_2px_var(--tw-shadow-color)] shadow-[#0d0d0d]">
+                Update Teacher
+              </button>
             </div>
           </div>
         </div>
       </div>
 
-      <hr className="h-3 bg-[rgb(13,13,13)] border-0" />
-
-      <div className="flex justify-center py-8">
-        <button type="submit" className="min-w-96 bg-[#DBBA12] rounded-2xl py-3 text-2xl [text-shadow:1px_1px_2px_var(--tw-shadow-color)] shadow-[#0D0D0D]">
-          Update Teacher
-        </button>
-      </div>
-
-      <div className="absolute top-[35%] -right-16">
-        <img src={HumanImg4} className="w-42" />
+      <div className="absolute -bottom-5 -right-20">
+        <img src={HumanImg2} className="w-56" />
       </div>
     </form>
   }</>)

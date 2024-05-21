@@ -8,3 +8,8 @@
 #dashboard-nav li:has(a.active) h6 {
     color: #ffffff;
 }
+
+#dashboard-content {
+  scrollbar-color: #ffffff #000000;
+  scrollbar-width: thin;
+}

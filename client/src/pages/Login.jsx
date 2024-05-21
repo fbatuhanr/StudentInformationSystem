@@ -45,10 +45,10 @@ const Login = () => {
         <form onSubmit={handleSubmit}>
             <div className={`py-8 flex flex-col gap-y-6 justify-center items-center`}>
                 <div className="relative">
-                    <h1 className="text-5xl font-bold relative z-10">Principal Login</h1>
+                    <h1 className="text-4xl font-bold relative z-10">Principal Login</h1>
                     <img src={ellipseSmall} className="w-72 absolute -top-20 left-0 right-0 mx-auto" />
                 </div>
-                <div className="relative w-11/12 md:w-full max-w-3xl h-[400px] px-4 md:px-8 rounded-xl bg-gradient-to-br from-[#4F22F2] to-[#20183F]">
+                <div className="relative w-11/12 md:w-full max-w-3xl h-[400px] px-4 md:px-8 rounded-3xl bg-gradient-to-br from-[#4F22F2] to-[#20183F]">
                     <div className="md:ps-24 w-full px-1 md:w-3/4 flex flex-col gap-y-3 h-full justify-center">
                         <div className="flex flex-col gap-y-1">
                             <label htmlFor="username" className="text-2xl font-semibold ps-2">Username</label>

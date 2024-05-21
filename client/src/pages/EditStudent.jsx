@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { serverAddress } from '../settings'
 
-import HumanImg4 from "../assets/human-4.png"
+import HumanImg1 from "../assets/human-1.png"
 
 import Select from 'react-select'
 import { Controller, useForm } from "react-hook-form"
@@ -76,7 +76,7 @@ const EditStudent = () => {
 
         fetchData("city").then(data => setCities(data))
         fetchData("class").then(data => setClasses(data))
-        fetchData("canteen").then(data => { 
+        fetchData("canteen").then(data => {
             setCanteenProducts(data)
             setCanteenProductOptions(data.map(i => { return { label: i.Name, value: i.ID } }))
         })
@@ -118,13 +118,19 @@ const EditStudent = () => {
 
         dispatch(setIsLoading(false))
     }
-    
+
     return (<>{
         student && parent && studentRestrictedProducts &&
         <form onSubmit={handleSubmit(onSubmit)} method="post" enctype="multipart/form-data">
-            <div className="relative">
-                <div className="px-12 py-8 font-outfit">
-                    <h2 className="text-2xl font-bold mt-2">Edit Student Informations</h2>
+
+            <div className="py-10">
+                <h2 className="text-[1.7rem] font-bold text-center">Edit Student</h2>
+                <div className="h-0.5 mt-1 bg-[#cccccc] w-64 mx-auto"></div>
+            </div>
+
+            <div className="px-4">
+                <div className="px-12 pb-8 font-outfit">
+                    <h2 className="text-2xl font-bold mt-2">Student Informations</h2>
                     <div className="px-4 py-8">
                         <div className="flex justify-between gap-x-2">
                             <div className="basis-1/3">
@@ -218,7 +224,7 @@ const EditStudent = () => {
                                         control={control}
                                         name="restrictedProducts"
                                         defaultValue={studentRestrictedProducts.map(i => canteenProductOptions.find(j => j.value == i))}
-                                        render={({ field: { onChange, value }}) => (
+                                        render={({ field: { onChange, value } }) => (
                                             <Select
                                                 isMulti
                                                 name="restrictedProducts"
@@ -255,10 +261,10 @@ const EditStudent = () => {
                         Submit
                     </button>
                 </div>
+            </div>
 
-                <div className="absolute top-[35%] -right-16">
-                    <img src={HumanImg4} className="w-42" />
-                </div>
+            <div className="absolute -bottom-4 -left-12">
+                <img src={HumanImg1} className="w-32" />
             </div>
         </form>
     }</>)

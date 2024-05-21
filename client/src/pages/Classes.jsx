@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 import { serverAddress } from '../settings'
 
-import HumanImg3 from "../assets/human-3.png"
+import HumanImg5 from "../assets/human-5.png"
 import { FaEraser, FaPlus } from 'react-icons/fa'
 import { FiRefreshCw } from 'react-icons/fi'
 import Swal from 'sweetalert2'
@@ -85,7 +85,7 @@ const Classes = () => {
   }
 
   return (
-    <div className="relative">
+    <>
       <div className="py-10">
         <h2 className="text-[1.7rem] font-bold text-center">Manage Classes</h2>
         <div className="h-0.5 mt-1 bg-[#cccccc] w-64 mx-auto"></div>
@@ -132,10 +132,10 @@ const Classes = () => {
         </div>
 
       </div>
-      <div className="absolute -bottom-8 -right-14">
-        <img src={HumanImg3} className="w-44" />
+      <div className="absolute -bottom-8 -left-10">
+        <img src={HumanImg5} className="w-40" />
       </div>
-    </div>
+    </>
   )
 }
 

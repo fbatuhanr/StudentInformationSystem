@@ -37,6 +37,7 @@ import Canteen from "./pages/Canteen.jsx"
 import { useSelector } from "react-redux";
 import EditStudent from "./pages/EditStudent.jsx"
 import EditTeacher from "./pages/EditTeacher.jsx"
+import Signup from "./pages/Signup.jsx"
 
 function App() {
 
@@ -50,6 +51,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<GuestGuard><Login /></GuestGuard>} />
+            <Route path="/signup" element={<GuestGuard><Signup /></GuestGuard>} />
 
             <Route path="/dashboard" element={<AuthGuard><DashboardLayout /></AuthGuard>}>
               <Route path="overview" element={<Dashboard />} />

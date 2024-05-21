@@ -62,6 +62,26 @@ app.post('/login', (req, res) => {
         return res.send(false);
     }
 });
+app.post('/signup', (req, res) => {
+
+    console.log(req.body)
+
+    const { principalRegistrationCode } = req.body
+    const codeCheckSql = `SELECT * FROM Settings WHERE PrincipalRegistrationCode='${principalRegistrationCode}'`;
+    db.query(codeCheckSql, (error, result) => {
+        if (error) throw error;
+        if (!result.length) return res.send({ error: "Registration code is incorrect!" })
+
+        const { username, password } = req.body
+        const registerSql = `INSERT INTO Principal (Username, Password) VALUES ('${username}', '${password}')`;
+        db.query(registerSql, (error, result) => {
+            if (error) throw error;
+
+            console.log("1 record inserted");
+            return res.send(true);
+        });
+    })
+});
 
 
 /* FETCH DATA */
@@ -98,7 +118,7 @@ app.get('/parent', (req, res) => {
     })
 })
 app.get('/teacher', (req, res) => {
-    
+
     const sql = "SELECT * FROM Teacher, TeacherClasses WHERE Teacher.ID=TeacherClasses.TeacherID"
     db.query(sql, (err, data) => {
         if (err) return res.json(err);
@@ -397,10 +417,10 @@ app.delete('/class/:id', (req, res) => {
     const sql = `DELETE FROM Class WHERE ID='${classId}'`;
     db.query(sql, (error, result) => {
 
-        if(error){
-            if(error.code == mysqlErrorKeys.ER_ROW_IS_REFERENCED || error.code == mysqlErrorKeys.ER_ROW_IS_REFERENCED_2){
-            
-                return res.send({error: "The class could not be deleted because it was selected by student or teacher!"})
+        if (error) {
+            if (error.code == mysqlErrorKeys.ER_ROW_IS_REFERENCED || error.code == mysqlErrorKeys.ER_ROW_IS_REFERENCED_2) {
+
+                return res.send({ error: "The class could not be deleted because it was selected by student or teacher!" })
             }
             else {
                 throw error;
@@ -418,10 +438,10 @@ app.delete('/canteen/:id', (req, res) => {
     const sql = `DELETE FROM Canteen WHERE ID='${productId}'`;
     db.query(sql, (error, result) => {
 
-        if(error){
-            if(error.code == mysqlErrorKeys.ER_ROW_IS_REFERENCED || error.code == mysqlErrorKeys.ER_ROW_IS_REFERENCED_2){
-            
-                return res.send({error: "The product could not be deleted because it was selected as a restricted product!"})
+        if (error) {
+            if (error.code == mysqlErrorKeys.ER_ROW_IS_REFERENCED || error.code == mysqlErrorKeys.ER_ROW_IS_REFERENCED_2) {
+
+                return res.send({ error: "The product could not be deleted because it was selected as a restricted product!" })
             }
             else {
                 throw error;

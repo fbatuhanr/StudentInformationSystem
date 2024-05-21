@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { serverAddress } from '../settings'
 
-import HumanImg4 from "../assets/human-4.png"
+import HumanImg1 from "../assets/human-1.png"
 
 import Select from 'react-select'
 import { Controller, useForm } from "react-hook-form"
@@ -78,7 +78,8 @@ const RegisterStudent = () => {
         <h2 className="text-[1.7rem] font-bold text-center">Register Student</h2>
         <div className="h-0.5 mt-1 bg-[#cccccc] w-64 mx-auto"></div>
       </div>
-      <div className="relative">
+
+      <div className="px-4">
         <div className="px-12 pb-8 font-outfit">
           <h2 className="text-2xl font-semibold mt-2">Student Informations</h2>
           <div className="px-4 py-8">
@@ -96,7 +97,7 @@ const RegisterStudent = () => {
               <div className="basis-1/3">
                 <h3 className="text-xl font-semibold ps-2 mb-1">Class</h3>
                 <select {...register("classId", { required: true })}
-                  className="min-w-48 bg-[#0D0D0D] text-[#A1A1A1] p-3 rounded-2xl">
+                  className="w-full bg-[#0D0D0D] text-[#A1A1A1] p-3 rounded-2xl">
                   <option value="">Select...</option>
                   {
                     classes && classes.map(cls => <option key={cls.ID} value={cls.ID}>{cls.Name}</option>)
@@ -124,13 +125,13 @@ const RegisterStudent = () => {
               <div className="w-full">
                 <h3 className="text-xl font-semibold ps-2 mb-1">Photo</h3>
                 <input type="file" {...register("photo", { required: true })}
-                  className="w-11/12 bg-[#0D0D0D] text-[#A1A1A1] p-4 rounded-2xl" />
+                  className="w-1/2 bg-[#0D0D0D] text-[#A1A1A1] p-4 rounded-2xl" />
               </div>
             </div>
           </div>
         </div>
 
-        <hr className="h-3 bg-[rgb(13,13,13)] border-0" />
+        <hr className="h-1 mx-24 rounded-xl bg-[rgb(13,13,13)] border-0" />
 
         <div className="px-12 py-8 font-outfit">
           <h2 className="text-2xl font-bold mt-2">Parent Informations</h2>
@@ -157,7 +158,7 @@ const RegisterStudent = () => {
 
         </div>
 
-        <hr className="h-3 bg-[rgb(13,13,13)] border-0" />
+        <hr className="h-1 mx-24 rounded-xl bg-[rgb(13,13,13)] border-0" />
 
         <div className="px-12 py-8 font-outfit">
           <h2 className="text-2xl font-bold mt-2">Canteen Informations</h2>
@@ -200,17 +201,17 @@ const RegisterStudent = () => {
 
         </div>
 
-        <hr className="h-3 bg-[rgb(13,13,13)] border-0" />
+        <hr className="h-1 mx-24 rounded-xl bg-[rgb(13,13,13)] border-0" />
 
         <div className="flex justify-center py-8">
           <button type="submit" className="min-w-96 bg-[#DBBA12] rounded-2xl py-3 text-2xl [text-shadow:1px_1px_2px_var(--tw-shadow-color)] shadow-[#0D0D0D]">
             Submit
           </button>
         </div>
+      </div>
 
-        <div className="absolute top-[35%] -right-16">
-          <img src={HumanImg4} className="w-42" />
-        </div>
+      <div className="absolute -bottom-4 -left-12">
+        <img src={HumanImg1} className="w-32" />
       </div>
     </form>
   )

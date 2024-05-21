@@ -67,14 +67,16 @@ const RegisterTeacher = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      
       <div className="py-10">
         <h2 className="text-[1.7rem] font-bold text-center">Register Teacher</h2>
         <div className="h-0.5 mt-1 bg-[#cccccc] w-64 mx-auto"></div>
       </div>
+
       <div className="relative">
         <div className="px-12 pb-8 font-outfit">
-          <h2 className="text-2xl font-bold mt-2">Teacher Informations</h2>
-          <div className="px-4 py-10">
+          <h2 className="text-2xl font-bold">Teacher Informations</h2>
+          <div className="py-6">
             <div className="flex justify-center gap-x-2 px-12">
               <div className="basis-1/2">
                 <h3 className="text-xl font-semibold ps-2 mb-1">Name</h3>
@@ -109,16 +111,13 @@ const RegisterTeacher = () => {
                 }
               </div>
             </div>
+            <div className="flex justify-center mt-8">
+              <button type="submit" className="min-w-96 bg-[#DBBA12] hover:bg-[#d9bf3b] rounded-2xl py-3 text-xl [text-shadow:1px_1px_2px_var(--tw-shadow-color)] shadow-[#0d0d0d]">
+                Register Teacher
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-
-      <hr className="h-3 bg-[rgb(13,13,13)] border-0" />
-
-      <div className="flex justify-center py-8">
-        <button type="submit" className="min-w-96 bg-[#DBBA12] rounded-2xl py-3 text-2xl [text-shadow:1px_1px_2px_var(--tw-shadow-color)] shadow-[#0D0D0D]">
-          Register Teacher
-        </button>
       </div>
 
       <div className="absolute -bottom-5 -right-20">
