@@ -118,7 +118,7 @@ const EditTeacher = () => {
               <div className="basis-1/2">
                 <h3 className="text-xl font-semibold ps-2 mb-1">Classes</h3>
                 {
-                  classes && classOptions && teacherClasses &&
+                  (classes && classOptions && teacherClasses) &&
                   <Controller
                     control={control}
                     name="classes"

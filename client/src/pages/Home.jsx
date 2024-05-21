@@ -16,7 +16,7 @@ import MessageImg from "../assets/message.png"
 const Home = () => {
 
   return (
-    <div>
+    <>
       <section className="pt-8 px-6 md:pt-0 md:px-12 md:bg-none bg-hero bg-no-repeat bg-[top_right] bg-[length:256px] max-w-6xl mx-auto flex flex-col md:flex-row">
         <div className="basis-full md:basis-1/2 flex flex-col justify-center md:ps-6">
           <h3 className="text-2xl font-thin">
@@ -42,14 +42,14 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="mt-44">
+      <section className="mt-28 md:mt-44">
         <div className="bg-gradient-to-r from-[#472DA6] to-[#6841F2]">
           <div className="max-w-6xl px-4 md:px-12 py-12 md:py-12 mx-auto flex relative md:static">
-            <div className="basis-2/5 md:relative">
-              <img src={CalendarImg} className="absolute w-72 right-0 -top-36" />
+            <div className="basis-20 md:basis-2/5 md:relative">
+              <img src={CalendarImg} className="absolute w-36 -top-6 left-0" />
             </div>
-            <div className="basis-3/5 md:basis-2/3 flex flex-col">
-              <h2 className="text-2xl md:text-3xl font-bold ps-16 md:ps-12">
+            <div className="md:basis-3/5 flex flex-col">
+              <h2 className="text-2xl md:text-3xl font-bold ps-24 md:ps-12">
                 Innovative School Management
               </h2>
               <p className="text-xl md:text-xl font-light pt-4 pb-2 pe-12">
@@ -60,17 +60,17 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="mt-24 md:mt-36 px-12 md:px-24 max-w-6xl mx-auto min-h-96 flex bg-blur-ellipse bg-no-repeat bg-contain">
-        <div className="basis-1/2 flex flex-col justify-center">
-          <h2 className="text-5xl font-medium">Optimize Your School Operations</h2>
+      <section className="mt-20 md:mt-36 px-12 md:px-24 max-w-6xl mx-auto min-h-96 flex flex-col-reverse md:flex-row bg-blur-ellipse bg-no-repeat bg-contain">
+        <div className="basis-full md:basis-1/2 flex flex-col justify-center">
+          <h2 className="text-3xl md:text-5xl font-medium">Optimize Your School Operations</h2>
           <p className="mt-8 mb-3 text-2xl font-light leading-6">Innovative Solutions for School Management</p>
           <p className="text-2xl font-light text-[#F2D541]"><u>Partnering for Success:</u> Your Trusted Resource in School Governance</p>
         </div>
-        <div className="basis-1/2 p-8">
+        <div className="basis-full md:basis-1/2 md:p-8">
           <img src={StatsImg} width="100%" height="auto" />
         </div>
       </section>
-    </div>
+    </>
   )
 }
 

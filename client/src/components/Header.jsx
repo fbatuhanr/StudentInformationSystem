@@ -16,18 +16,18 @@ const Header = () => {
 
     return (
         <header className="bg-gradient-to-b from-[#4F22F2] to-[#0D0D0D1a] h-20 fixed z-10 w-full">
-            <div className="max-w-6xl px-12 mx-auto">
+            <div className="max-w-6xl px-6 md:px-12 mx-auto">
                 <nav className="flex items-center gap-x-8 py-4">
-                    <div className="flex-1 text-xl md:text-2xl font-bold">
+                    <div className="flex-1 text-base md:text-2xl font-bold">
                         <Link to="/">Student Information System</Link>
                     </div>
                     {
                         !user.username ?
                             <>
-                                <div className="text-xl font-semibold">
+                                <div className="text-lg md:text-xl font-semibold">
                                     <Link to="/login">Login</Link>
                                 </div>
-                                <div className="text-xl font-semibold">
+                                <div className="text-lg md:text-xl font-semibold">
                                     <Link to="/signup">Sign up</Link>
                                 </div>
                             </>
