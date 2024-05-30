@@ -1,9 +1,11 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { FaEdit, FaEraser, FaUser } from 'react-icons/fa'
-import { serverAddress } from '../settings'
+import { FaEdit, FaEraser } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
+
+import { serverAddress } from '../../settings.js'
+import DashboardTitle from '../../components/DashboardTitle.jsx'
 
 const BrowseTeachers = () => {
 
@@ -80,10 +82,7 @@ const BrowseTeachers = () => {
 
   return (
     <div className="pb-12">
-      <div className="py-10">
-        <h2 className="text-[1.7rem] font-bold text-center">Browse Teachers</h2>
-        <div className="h-0.5 mt-1 bg-[#cccccc] w-64 mx-auto"></div>
-      </div>
+      <DashboardTitle title="Browse Teachers"/>
       {
         teachers && teachers.length ?
           <>

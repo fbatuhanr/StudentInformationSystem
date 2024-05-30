@@ -2,6 +2,11 @@ import React from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 
 import ellipseSmall from "../assets/ellipse-small.png"
+import { PiStudent, PiStudentBold } from 'react-icons/pi'
+import { FaCalendarCheck, FaRegCalendarCheck, FaUserGraduate, FaUserTie } from 'react-icons/fa'
+import { SiGoogleclassroom } from 'react-icons/si'
+import { IoFastFoodSharp } from 'react-icons/io5'
+import { IoMdAnalytics } from 'react-icons/io'
 
 const DashboardLayout = () => {
   return (
@@ -14,24 +19,50 @@ const DashboardLayout = () => {
 
         <nav id="dashboard-nav" className="w-full bg-[#29156C] rounded-t-xl">
           <ul className="flex justify-between h-full [&>li]:flex [&>li]:items-center [&>li]:px-5 [&>li]:py-2.5 text-[#B8B8B8] [&_a:hover]:text-white  [&_a.active]:text-white font-outfit font-bold">
-            <li className="rounded-tl-xl"><NavLink to="/dashboard/overview">Overview</NavLink></li>
+            <li className="rounded-tl-xl">
+              <NavLink to="/dashboard/overview" className="flex justify-center items-center gap-x-1.5">
+                <span><IoMdAnalytics className="text-lg" /></span>
+                <span>Overview</span>
+              </NavLink>
+            </li>
             <li className="!block">
-              <h6 className="text-center">Student</h6>
+              <h6 className="text-center flex justify-center items-center gap-x-1">
+                <span><FaUserGraduate className="text-sm" /></span>
+                <span> Student</span>
+              </h6>
               <ul className="flex gap-x-2 justify-around">
                 <li><NavLink to="/dashboard/browse-students">Browse</NavLink></li>
                 <li><NavLink to="/dashboard/register-student">Register</NavLink></li>
               </ul>
             </li>
             <li className="!block">
-              <h6 className="text-center">Teacher</h6>
+              <h6 className="text-center flex justify-center items-center gap-x-1">
+                <span><FaUserTie className="text-sm" /></span>
+                <span>Teacher</span>
+              </h6>
               <ul className="flex gap-x-2 justify-around">
                 <li><NavLink to="/dashboard/browse-teachers">Browse</NavLink></li>
                 <li><NavLink to="/dashboard/register-teacher">Register</NavLink></li>
               </ul>
             </li>
-            <li><NavLink to="/dashboard/classes">Classes</NavLink></li>
-            <li><NavLink to="/dashboard/attendance">Attendance</NavLink></li>
-            <li className="rounded-tr-xl"><NavLink to="/dashboard/canteen">Canteen</NavLink></li>
+            <li>
+              <NavLink to="/dashboard/classes" className="flex justify-center items-center gap-x-1.5">
+                <span><SiGoogleclassroom className="text-lg" /></span>
+                <span>Classes</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/dashboard/attendance" className="flex justify-center items-center gap-x-1.5">
+                <span><FaRegCalendarCheck className="text-lg" /></span>
+                <span>Attendance</span>
+              </NavLink>
+            </li>
+            <li className="rounded-tr-xl">
+              <NavLink to="/dashboard/canteen" className="flex justify-center items-center gap-x-1.5">
+                <span><IoFastFoodSharp className="text-lg" /></span>
+                <span>Canteen</span>
+              </NavLink>
+            </li>
           </ul>
         </nav>
 

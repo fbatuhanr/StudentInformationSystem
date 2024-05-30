@@ -45,6 +45,7 @@
     "axios": "^1.6.8",
     "electron-squirrel-startup": "^1.0.0",
     "react": "^18.3.1",
+    "react-calendar": "^5.0.0",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.51.4",
     "react-icons": "^5.2.1",

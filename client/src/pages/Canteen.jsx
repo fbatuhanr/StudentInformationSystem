@@ -6,6 +6,7 @@ import HumanImg1 from "../assets/human-1.png"
 import { FaEraser, FaPlus } from 'react-icons/fa'
 import { FiRefreshCw } from 'react-icons/fi'
 import Swal from 'sweetalert2'
+import DashboardTitle from '../components/DashboardTitle.jsx'
 
 const Canteen = () => {
 
@@ -100,10 +101,8 @@ const Canteen = () => {
 
   return (
     <>
-      <div className="py-10">
-        <h2 className="text-[1.7rem] font-bold text-center">Manage Canteen Products</h2>
-        <div className="h-0.5 mt-1 bg-[#cccccc] w-96 mx-auto"></div>
-      </div>
+
+      <DashboardTitle title="Manage Canteen Products" />
 
       <div className="px-4 py-8">
         <div className="md:w-1/2 mx-auto mb-4">

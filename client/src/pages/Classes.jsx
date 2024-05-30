@@ -7,6 +7,8 @@ import { FaEraser, FaPlus } from 'react-icons/fa'
 import { FiRefreshCw } from 'react-icons/fi'
 import Swal from 'sweetalert2'
 
+import DashboardTitle from '../components/DashboardTitle.jsx'
+
 const Classes = () => {
 
   /* FETCHING EXIST CLASSES FROM DB */
@@ -86,10 +88,8 @@ const Classes = () => {
 
   return (
     <>
-      <div className="py-10">
-        <h2 className="text-[1.7rem] font-bold text-center">Manage Classes</h2>
-        <div className="h-0.5 mt-1 bg-[#cccccc] w-64 mx-auto"></div>
-      </div>
+      <DashboardTitle title="Manage Classes" />
+      
       <div className="px-4 pb-8">
         <div className="md:w-1/2 mx-auto mb-4">
           {

@@ -134,6 +134,17 @@ app.get('/canteen', (req, res) => {
         return res.json(data);
     })
 })
+app.get('/attendance', (req, res) => {
+    const sql = "SELECT *, DATE_FORMAT(date,'%Y-%m-%d') AS Date FROM Attendance";
+    db.query(sql, (err, data) => {
+        if (err) return res.json(err);
+
+        console.log(data)
+        return res.json(data);
+    })
+})
+
+
 app.get('/class/:id', (req, res) => {
 
     const classId = req.params.id;
@@ -283,6 +294,74 @@ app.post('/canteen', (req, res) => {
         return res.send(true);
     });
 });
+
+/* UPDATE OR INSERT */
+app.put('/attendance/:studentId/:date', (req, res) => {
+
+    const studentId = req.params.studentId;
+    const date = req.params.date;
+    const { status } = req.body;
+
+    console.log(studentId)
+    console.log(date)
+    console.log(status)
+
+    const sql = `SELECT * FROM Attendance WHERE StudentID=${studentId} AND Date='${date}'`;
+    db.query(sql, (error, result) => {
+        if (error) return res.json(error);
+
+        if (result.length > 0) {
+
+            const sql = `UPDATE Attendance SET Status=${status} WHERE StudentID=${studentId} AND Date='${date}'`;
+            db.query(sql, (error, result) => {
+                if (error) throw error;
+
+                return res.send(true);
+            });
+        }
+        else {
+
+            const sql = `INSERT INTO Attendance (StudentID, Date, Status) VALUES (${studentId}, '${date}', ${status})`;
+            db.query(sql, (error, result) => {
+                if (error) throw error;
+
+                return res.send(true);
+            });
+        }
+    })
+});
+
+app.post('/attendance', (req, res) => {
+    const { studentId, date, status } = req.query;
+  
+    if (!studentId || !date || !status) {
+      return res.status(400).send('Missing parameters');
+    }
+  
+    const checkQuery = `SELECT * FROM Attendance WHERE StudentID=${studentId} AND Date='${date}'`;
+    db.query(checkQuery, (error, result) => {
+      if (error) return res.status(500).send(err);
+  
+      if (result.length > 0) {
+
+        const updateQuery = `UPDATE Attendance SET Status=${status} WHERE StudentID=${studentId} AND Date='${date}'`;
+        db.query(updateQuery, (error, result) => {
+            if (error) throw error;
+
+            return res.send(true);
+        });
+
+      } else {
+        
+        const insertQuery = `INSERT INTO Attendance (StudentID, Date, Status) VALUES (${studentId}, '${date}', ${status})`;
+        db.query(insertQuery, (error, result) => {
+            if (error) throw error;
+
+            return res.send(true);
+        });
+      }
+    });
+  });
 
 /* UPDATE */
 app.post('/student/:id', upload.single('photo'), (req, res) => {

@@ -1,15 +1,16 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { serverAddress } from '../settings'
 
-import HumanImg1 from "../assets/human-1.png"
+import HumanImg1 from "../../assets/human-1.png"
 
 import Select from 'react-select'
 import { Controller, useForm } from "react-hook-form"
 import { useDispatch } from 'react-redux'
-import { setIsLoading } from '../redux/features/StatusSlice'
+import { setIsLoading } from '../../redux/features/StatusSlice'
 import { useNavigate, useParams } from 'react-router-dom'
 
+import { serverAddress } from "../../settings.js"
+import DashboardTitle from "../../components/DashboardTitle.jsx"
 
 const EditStudent = () => {
 
@@ -123,10 +124,7 @@ const EditStudent = () => {
         student && parent && studentRestrictedProducts &&
         <form onSubmit={handleSubmit(onSubmit)} method="post" enctype="multipart/form-data">
 
-            <div className="py-10">
-                <h2 className="text-[1.7rem] font-bold text-center">Edit Student</h2>
-                <div className="h-0.5 mt-1 bg-[#cccccc] w-64 mx-auto"></div>
-            </div>
+            <DashboardTitle title="Edit Student" />
 
             <div className="px-4">
                 <div className="px-12 pb-8 font-outfit">
@@ -173,17 +171,20 @@ const EditStudent = () => {
                         <div className="mt-6">
                             <div className="w-full">
                                 <h3 className="text-xl font-semibold ps-2 mb-1">Photo</h3>
-                                <input type="file" {...register("photo")}
-                                    className="w-11/12 bg-[#0D0D0D] text-[#A1A1A1] p-4 rounded-2xl" />
-                                {
-                                    student.Photo
-                                }
+                                <div className="flex items-center gap-x-1">
+                                    <div className="basis-1/6">
+                                        <img src={`${serverAddress}/${student.Photo}`} className="w-full rounded-2xl" />
+                                    </div>
+                                    <div className="basis-5/6">
+                                        <input type="file" {...register("photo")} className="w-full bg-[#0D0D0D] text-[#A1A1A1] p-4 rounded-2xl" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <hr className="h-3 bg-[rgb(13,13,13)] border-0" />
+                <hr className="h-1 mx-24 rounded-xl bg-[rgb(13,13,13)] border-0" />
 
                 <div className="px-12 py-8 font-outfit">
                     <h2 className="text-2xl font-bold mt-2">Parent Informations</h2>
@@ -210,7 +211,7 @@ const EditStudent = () => {
 
                 </div>
 
-                <hr className="h-3 bg-[rgb(13,13,13)] border-0" />
+                <hr className="h-1 mx-24 rounded-xl bg-[rgb(13,13,13)] border-0" />
 
                 <div className="px-12 py-8 font-outfit">
                     <h2 className="text-2xl font-bold mt-2">Canteen Informations</h2>
@@ -254,11 +255,11 @@ const EditStudent = () => {
 
                 </div>
 
-                <hr className="h-3 bg-[rgb(13,13,13)] border-0" />
+                <hr className="h-1 mx-24 rounded-xl bg-[rgb(13,13,13)] border-0" />
 
                 <div className="flex justify-center py-8">
                     <button type="submit" className="min-w-96 bg-[#DBBA12] rounded-2xl py-3 text-2xl [text-shadow:1px_1px_2px_var(--tw-shadow-color)] shadow-[#0D0D0D]">
-                        Submit
+                        Update Student
                     </button>
                 </div>
             </div>

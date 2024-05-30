@@ -1,14 +1,16 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { serverAddress } from '../settings'
 
-import HumanImg1 from "../assets/human-1.png"
+import HumanImg1 from "../../assets/human-1.png"
 
 import Select from 'react-select'
 import { Controller, useForm } from "react-hook-form"
 import { useDispatch } from 'react-redux'
-import { setIsLoading } from '../redux/features/StatusSlice'
+import { setIsLoading } from '../../redux/features/StatusSlice'
 import { useNavigate } from 'react-router-dom'
+
+import { serverAddress } from "../../settings.js"
+import DashboardTitle from "../../components/DashboardTitle.jsx"
 
 const RegisterStudent = () => {
 
@@ -74,10 +76,8 @@ const RegisterStudent = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} method="post" enctype="multipart/form-data">
-      <div className="py-10">
-        <h2 className="text-[1.7rem] font-bold text-center">Register Student</h2>
-        <div className="h-0.5 mt-1 bg-[#cccccc] w-64 mx-auto"></div>
-      </div>
+
+      <DashboardTitle title="Register Student" />
 
       <div className="px-4">
         <div className="px-12 pb-8 font-outfit">
@@ -205,7 +205,7 @@ const RegisterStudent = () => {
 
         <div className="flex justify-center py-8">
           <button type="submit" className="min-w-96 bg-[#DBBA12] rounded-2xl py-3 text-2xl [text-shadow:1px_1px_2px_var(--tw-shadow-color)] shadow-[#0D0D0D]">
-            Submit
+            Register Student
           </button>
         </div>
       </div>

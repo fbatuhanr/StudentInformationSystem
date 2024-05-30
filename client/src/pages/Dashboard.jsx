@@ -1,10 +1,9 @@
 import React from 'react'
+import DashboardTitle from '../components/DashboardTitle.jsx'
 
 const Dashboard = () => {
   return (
-    <div className="flex justify-center items-center h-64">
-      <p>Welcome to the Student Information System</p>
-    </div>
+    <DashboardTitle title="Statistics" />
   )
 }
 

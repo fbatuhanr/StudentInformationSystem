@@ -25,18 +25,19 @@ import DashboardLayout from "./pages/DashboardLayout.jsx"
 
 import Dashboard from "./pages/Dashboard.jsx"
 
-import BrowseStudents from "./pages/BrowseStudents.jsx"
-import RegisterStudent from "./pages/RegisterStudent.jsx"
+import BrowseStudents from "./pages/Student/BrowseStudents.jsx"
+import EditStudent from "./pages/Student/EditStudent.jsx"
+import RegisterStudent from "./pages/Student/RegisterStudent.jsx"
 
-import BrowseTeachers from "./pages/BrowseTeachers.jsx"
-import RegisterTeacher from "./pages/RegisterTeacher.jsx"
+import BrowseTeachers from "./pages/Teacher/BrowseTeachers.jsx"
+import EditTeacher from "./pages/Teacher/EditTeacher.jsx"
+import RegisterTeacher from "./pages/Teacher/RegisterTeacher.jsx"
+
 import Classes from "./pages/Classes.jsx"
 import Attendance from "./pages/Attendance.jsx"
 import Canteen from "./pages/Canteen.jsx"
 
-import { useSelector } from "react-redux";
-import EditStudent from "./pages/EditStudent.jsx"
-import EditTeacher from "./pages/EditTeacher.jsx"
+import { useSelector } from "react-redux"
 import Signup from "./pages/Signup.jsx"
 
 function App() {

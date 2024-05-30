@@ -1,14 +1,16 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { serverAddress } from '../settings'
 
-import HumanImg2 from "../assets/human-2.png"
+import HumanImg2 from "../../assets/human-2.png"
 
 import Select from 'react-select'
 import { Controller, useForm } from "react-hook-form"
 import { useDispatch } from 'react-redux'
-import { setIsLoading } from '../redux/features/StatusSlice'
+import { setIsLoading } from '../../redux/features/StatusSlice.js'
 import { useNavigate } from 'react-router-dom'
+
+import { serverAddress } from '../../settings.js'
+import DashboardTitle from '../../components/DashboardTitle.jsx'
 
 const RegisterTeacher = () => {
 
@@ -67,11 +69,8 @@ const RegisterTeacher = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      
-      <div className="py-10">
-        <h2 className="text-[1.7rem] font-bold text-center">Register Teacher</h2>
-        <div className="h-0.5 mt-1 bg-[#cccccc] w-64 mx-auto"></div>
-      </div>
+
+      <DashboardTitle title="Register Teacher" />
 
       <div className="relative">
         <div className="px-12 pb-8 font-outfit">
