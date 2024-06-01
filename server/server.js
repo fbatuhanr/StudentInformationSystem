@@ -143,6 +143,17 @@ app.get('/attendance', (req, res) => {
         return res.json(data);
     })
 })
+app.get('/class-student', (req, res) => {
+
+    const { ids } = req.query;
+
+    const sql = `SELECT * FROM Student WHERE ClassID IN (${ids.toString()})`;
+    db.query(sql, (err, data) => {
+        if (err) return res.json(err);
+
+        return res.json(data);
+    })
+})
 
 
 app.get('/class/:id', (req, res) => {
@@ -217,6 +228,7 @@ app.get('/teacher-classes/:id', (req, res) => {
 app.post('/student', upload.single('photo'), (req, res) => {
 
     console.log(req.file)
+    console.log(req.body)
     const { parentName, parentPhoneNumber, parentEmail } = req.body
 
     const parentSql = `INSERT INTO Parent (Name, PhoneNumber, Email) VALUES ('${parentName}', '${parentPhoneNumber}', '${parentEmail}')`;
@@ -231,10 +243,12 @@ app.post('/student', upload.single('photo'), (req, res) => {
         const studentSql = `INSERT INTO Student (Name, Number, ClassID, Address, Photo, CityID, ParentID, Balance) VALUES ('${name}', ${number}, ${classId}, '${address}', '${photo.path}', ${cityId}, ${parentId}, ${balance})`;
 
         db.query(studentSql, (error, result) => {
-
             if (error) throw error;
 
             const { restrictedProducts } = req.body
+            if(!restrictedProducts)
+                return res.send(true);
+
             const studentId = result.insertId;
             const stdRestrictedProducts = restrictedProducts.map(i => [studentId, i]);
 
@@ -296,6 +310,8 @@ app.post('/canteen', (req, res) => {
 });
 
 /* UPDATE OR INSERT */
+
+/* 
 app.put('/attendance/:studentId/:date', (req, res) => {
 
     const studentId = req.params.studentId;
@@ -330,6 +346,7 @@ app.put('/attendance/:studentId/:date', (req, res) => {
         }
     })
 });
+*/
 
 app.post('/attendance', (req, res) => {
     const { studentId, date, status } = req.query;
@@ -382,6 +399,9 @@ app.post('/student/:id', upload.single('photo'), (req, res) => {
             console.log(result.affectedRows + " record(s) StudentRestrictedProducts deleted");
 
             const { restrictedProducts } = req.body;
+            if(!restrictedProducts)
+                return res.send(true);
+
             const stdRestrictedProducts = restrictedProducts.map(i => [studentId, i]);
             const stdRestrictedProductsSql = 'INSERT INTO StudentRestrictedProducts (StudentID, ProductID) VALUES ?';
             db.query(stdRestrictedProductsSql, [stdRestrictedProducts], (error, result, fields) => {

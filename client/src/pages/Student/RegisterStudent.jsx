@@ -55,7 +55,7 @@ const RegisterStudent = () => {
     const resultData = {
       ...data,
       photo: data.photo[0],
-      restrictedProducts: data.restrictedProducts.map(i => i.value)
+      restrictedProducts: data.restrictedProducts ? data.restrictedProducts.map(i => i.value) : []
     }
     console.log(resultData)
 
@@ -65,7 +65,7 @@ const RegisterStudent = () => {
       console.log(response)
 
       dispatch(setIsLoading(false))
-      navigate("/dashboard/browse-students")
+      // navigate("/dashboard/browse-students")
     }
     catch (error) {
       console.log(error)
@@ -75,7 +75,7 @@ const RegisterStudent = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} method="post" enctype="multipart/form-data">
+    <form onSubmit={handleSubmit(onSubmit)} method="post" encType="multipart/form-data">
 
       <DashboardTitle title="Register Student" />
 

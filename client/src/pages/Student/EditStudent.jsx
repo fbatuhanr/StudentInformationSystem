@@ -99,7 +99,7 @@ const EditStudent = () => {
         const resultData = {
             ...data,
             photo: data.photo.length ? data.photo[0] : student.Photo,
-            restrictedProducts: data.restrictedProducts.map(i => i.value),
+            restrictedProducts: data.restrictedProducts ? data.restrictedProducts.map(i => i.value) : [],
 
             parentId: student.ParentID
         }
@@ -122,7 +122,7 @@ const EditStudent = () => {
 
     return (<>{
         student && parent && studentRestrictedProducts &&
-        <form onSubmit={handleSubmit(onSubmit)} method="post" enctype="multipart/form-data">
+        <form onSubmit={handleSubmit(onSubmit)} method="post" encType="multipart/form-data">
 
             <DashboardTitle title="Edit Student" />
 

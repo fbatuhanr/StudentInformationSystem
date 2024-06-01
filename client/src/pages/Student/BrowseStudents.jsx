@@ -50,9 +50,19 @@ const BrowseStudents = () => {
       .catch(error => console.error(error));
   }
 
+  const handleDisplayImage = imgUrl => {
+
+    Swal.fire({
+      confirmButtonText: "Close",
+      imageUrl: imgUrl,
+      imageWidth: "100%",
+      imageAlt: "Car Image"
+    });
+  }
+
   return (
     <div className="pb-12">
-      <DashboardTitle title="Browse Students"/>
+      <DashboardTitle title="Browse Students" />
       {
         students && students.length ?
           <>
@@ -68,7 +78,7 @@ const BrowseStudents = () => {
               students && students.map((student, index) =>
                 <div key={index} className="grid grid-cols-6 justify-items-center items-center my-1.5 py-2 font-semibold bg-[#5726FC] text-center">
                   <span className="w-12 h-12 overflow-hidden rounded-full flex items-center justify-center">
-                    <img src={`${serverAddress}/${student.Photo}`} />
+                    <img className="cursor-pointer" src={`${serverAddress}/${student.Photo}`} onClick={() => handleDisplayImage(`${serverAddress}/${student.Photo}`)} />
                   </span>
                   <span>
                     {student.Number}
