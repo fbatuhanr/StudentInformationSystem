@@ -79,7 +79,7 @@ const EditStudent = () => {
         fetchData("class").then(data => setClasses(data))
         fetchData("canteen").then(data => {
             setCanteenProducts(data)
-            setCanteenProductOptions(data.map(i => { return { label: i.Name, value: i.ID } }))
+            setCanteenProductOptions(data.map(i => { return { label: i.ProductName, value: i.ProductID } }))
         })
     }, [])
 
@@ -143,11 +143,11 @@ const EditStudent = () => {
                             </div>
                             <div className="basis-1/3">
                                 <h3 className="text-xl font-semibold ps-2 mb-1">Class</h3>
-                                <select {...register("classId", { required: true })}
+                                <select defaultValue={student.ClassID} {...register("classId", { required: true })}
                                     className="min-w-48 bg-[#0D0D0D] text-[#A1A1A1] p-3 rounded-2xl">
                                     <option value="">Select...</option>
                                     {
-                                        classes && classes.map(cls => <option key={cls.ID} value={cls.ID} selected={student.ClassID == cls.ID}>{cls.Name}</option>)
+                                        classes && classes.map(cls => <option key={cls.ClassID} value={cls.ClassID} selected={student.ClassID == cls.ClassID}>{cls.ClassName}</option>)
                                     }
                                 </select>
                             </div>
@@ -159,11 +159,11 @@ const EditStudent = () => {
                                     className="w-full bg-[#0D0D0D] text-[#A1A1A1] p-4 rounded-2xl" />
                             </div>
                             <div>
-                                <select {...register("cityId", { required: true })}
+                                <select defaultValue={student.CityID} {...register("cityId", { required: true })}
                                     className="min-w-48 bg-[#0D0D0D] text-[#A1A1A1] p-3 rounded-2xl">
                                     <option value="">City</option>
                                     {
-                                        cities && cities.map(city => <option key={city.ID} value={city.ID} selected={student.CityID == city.ID}>{city.Name}</option>)
+                                        cities && cities.map(city => <option key={city.CityID} value={city.CityID} selected={student.CityID == city.CityID}>{city.CityName}</option>)
                                     }
                                 </select>
                             </div>
@@ -192,19 +192,19 @@ const EditStudent = () => {
                         <div className="flex justify-between gap-x-12">
                             <div className="basis-1/2">
                                 <h3 className="text-xl font-semibold ps-2 mb-1">Name</h3>
-                                <input type="text" placeholder="type here..." defaultValue={parent.Name} {...register("parentName", { required: true })}
+                                <input type="text" placeholder="type here..." defaultValue={parent.ParentName} {...register("parentName", { required: true })}
                                     className="w-full bg-[#0D0D0D] text-[#A1A1A1] px-4 py-3 rounded-2xl" />
                             </div>
                             <div className="basis-1/2">
                                 <h3 className="text-xl font-semibold ps-2 mb-1">Phone Number</h3>
-                                <input type="text" placeholder="type here..." defaultValue={parent.PhoneNumber} {...register("parentPhoneNumber", { required: true })}
+                                <input type="text" placeholder="type here..." defaultValue={parent.ParentPhoneNumber} {...register("parentPhoneNumber", { required: true })}
                                     className="w-full bg-[#0D0D0D] text-[#A1A1A1] px-4 py-3 rounded-2xl" />
                             </div>
                         </div>
 
                         <div className="mt-6">
                             <h3 className="text-xl font-semibold ps-2 mb-1">Email</h3>
-                            <input type="text" placeholder="type here..." defaultValue={parent.Email} {...register("parentEmail", { required: true })}
+                            <input type="text" placeholder="type here..." defaultValue={parent.ParentEmail} {...register("parentEmail", { required: true })}
                                 className="min-w-64 bg-[#0D0D0D] text-[#A1A1A1] px-4 py-3 rounded-2xl" />
                         </div>
                     </div>

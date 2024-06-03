@@ -11,9 +11,6 @@ const BrowseStudents = () => {
 
   const [students, setStudents] = useState([])
 
-  const [parents, setParents] = useState([])
-  const [classes, setClasses] = useState([])
-
   useEffect(() => {
 
     const fetchData = async (param) => {
@@ -27,8 +24,6 @@ const BrowseStudents = () => {
       }
     }
     fetchData("student").then(data => setStudents(data))
-    fetchData("parent").then(data => setParents(data))
-    fetchData("class").then(data => setClasses(data))
 
   }, [])
 
@@ -87,14 +82,10 @@ const BrowseStudents = () => {
                     {student.Name}
                   </span>
                   <span>
-                    {
-                      parents && parents.find(i => i.ID == student.ParentID)?.Name
-                    }
+                    {student.ParentName}
                   </span>
                   <span>
-                    {
-                      classes && classes.find(i => i.ID == student.ClassID)?.Name
-                    }
+                    {student.ClassName}
                   </span>
                   <span className="flex gap-x-2">
                     <Link to={`/dashboard/edit-student/${student.ID}`}><FaEdit className="mx-auto text-2xl" /></Link>

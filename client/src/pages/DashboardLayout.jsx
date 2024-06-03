@@ -66,7 +66,7 @@ const DashboardLayout = () => {
           </ul>
         </nav>
 
-        <div id="dashboard-content" className="h-[410px] overflow-x-hidden overflow-y-auto border-l-2 border-b-2 border-r-2 border-[#29156C] rounded-b-xl">
+        <div id="dashboard-content" className="h-[440px] overflow-x-hidden overflow-y-auto border-l-2 border-b-2 border-r-2 border-[#29156C] rounded-b-xl">
           <Outlet />
         </div>
       </div>

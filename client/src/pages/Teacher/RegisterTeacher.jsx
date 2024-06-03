@@ -93,7 +93,7 @@ const RegisterTeacher = () => {
                       <Select
                         isMulti
                         name="classes"
-                        options={classes.map(i => { return { label: i.Name, value: i.ID } })}
+                        options={classes.map(i => { return { label: i.ClassName, value: i.ClassID } })}
                         onChange={onChange}
                         value={value ? value : []}
                         classNames={{

@@ -13,7 +13,6 @@ import DashboardTitle from '../components/DashboardTitle.jsx'
 import { MdOutlineDownloadDone, MdOutlineWarningAmber } from 'react-icons/md';
 import { FaXmark } from 'react-icons/fa6';
 
-import { Controller } from 'react-hook-form';
 import Select from 'react-select'
 
 const Attendance = () => {
@@ -149,7 +148,7 @@ const Attendance = () => {
               <Select
                 isMulti
                 name="classes"
-                options={classes.map(i => { return { label: i.Name, value: i.ID } })}
+                options={classes.map(i => { return { label: i.ClassName, value: i.ClassID } })}
                 onChange={handleClassChange}
                 value={selectedClasses}
                 classNames={{

@@ -1,3 +1,7 @@
+body {
+    background-color: #0D0D0D;
+}
+
 #dashboard-nav > ul > li:has(a.active) {
     background-color: #341C8B;
     border-bottom: 1px solid #cccccc;
@@ -15,6 +19,25 @@
 }
 
 
+.react-calendar {
+    color:#000000;
+}
+
 .react-calendar__tile {
     padding: 8px 5px !important;
+}
+
+.react-daterange-picker {
+    color:#ffffff;
+}
+.react-daterange-picker__wrapper {
+    border-radius: 10px;
+    padding: 5px 10px;
+    background-color: #0D0D0D;
+    border: none !important;
+    text-align: center;
+}
+.react-daterange-picker__button__icon {
+    color:#ffffff;
+    stroke:#ffffff;
 }

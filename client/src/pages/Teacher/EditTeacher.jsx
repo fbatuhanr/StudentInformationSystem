@@ -60,7 +60,7 @@ const EditTeacher = () => {
     fetchTeacherClasses().then(data => setTeacherClasses(data))
     fetchData("class").then(data => {
       setClasses(data)
-      setClassOptions(data.map(i => { return { label: i.Name, value: i.ID } }))
+      setClassOptions(data.map(i => { return { label: i.ClassName, value: i.ClassID } }))
     })
 
   }, [])
@@ -111,7 +111,7 @@ const EditTeacher = () => {
             <div className="flex justify-center gap-x-2 px-12">
               <div className="basis-1/2">
                 <h3 className="text-xl font-semibold ps-2 mb-1">Name</h3>
-                <input type="text" placeholder="type here..." defaultValue={teacher.Name} {...register("name", { required: true })}
+                <input type="text" placeholder="type here..." defaultValue={teacher.TeacherName} {...register("name", { required: true })}
                   className="w-full bg-[#0D0D0D] text-[#A1A1A1] px-4 py-3 rounded-2xl" />
               </div>
               <div className="basis-1/2">

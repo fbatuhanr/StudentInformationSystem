@@ -25,13 +25,13 @@ const BrowseTeachers = () => {
       }
     }
     fetchData("teacher").then(data => {
-
+      console.log(data)
       const groupedData = data.reduce((acc, obj) => {
-        const { ID, Name, TeacherID, ClassID } = obj;
+        const { TeacherName, TeacherID, ClassID } = obj;
         if (!acc[TeacherID]) {
           acc[TeacherID] = {
             TeacherID,
-            Name,
+            TeacherName,
             ClassIDs: []
           };
         }
@@ -48,17 +48,6 @@ const BrowseTeachers = () => {
       console.log(result)
     })
     fetchData("class").then(data => setClasses(data))
-
-    const fetchTeacherClasses = async (id) => {
-      try {
-        const response = await axios.get(`${serverAddress}/${param}`)
-        console.log(response)
-        return response.data
-      } catch (error) {
-        console.log(error)
-      }
-
-    }
 
   }, [])
 
@@ -95,14 +84,14 @@ const BrowseTeachers = () => {
               teachers.map((teacher, index) =>
                 <div key={index} className="grid grid-cols-4 justify-items-center items-center my-1.5 py-3 font-semibold bg-[#5726FC] text-center">
                   <span>
-                    {teacher.Name}
+                    {teacher.TeacherName}
                   </span>
                   <span className="col-span-2 flex gap-x-1">
                     {
                       teacher.ClassIDs && classes &&
                       teacher.ClassIDs.map(teacherClassId =>
                         <span key={teacherClassId} className="px-1.5 rounded-lg bg-[#20183f]">
-                          {classes.find(i => i.ID == teacherClassId)?.Name}
+                          {classes.find(i => i.ClassID == teacherClassId)?.ClassName}
                         </span>
                       )
                     }

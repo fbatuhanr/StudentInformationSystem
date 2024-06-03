@@ -65,7 +65,7 @@ const RegisterStudent = () => {
       console.log(response)
 
       dispatch(setIsLoading(false))
-      // navigate("/dashboard/browse-students")
+      navigate("/dashboard/browse-students")
     }
     catch (error) {
       console.log(error)
@@ -100,7 +100,7 @@ const RegisterStudent = () => {
                   className="w-full bg-[#0D0D0D] text-[#A1A1A1] p-3 rounded-2xl">
                   <option value="">Select...</option>
                   {
-                    classes && classes.map(cls => <option key={cls.ID} value={cls.ID}>{cls.Name}</option>)
+                    classes && classes.map(cls => <option key={cls.ClassID} value={cls.ClassID}>{cls.ClassName}</option>)
                   }
                 </select>
               </div>
@@ -116,7 +116,7 @@ const RegisterStudent = () => {
                   className="min-w-48 bg-[#0D0D0D] text-[#A1A1A1] p-3 rounded-2xl">
                   <option value="">City</option>
                   {
-                    cities && cities.map(city => <option key={city.ID} value={city.ID}>{city.Name}</option>)
+                    cities && cities.map(city => <option key={city.CityID} value={city.CityID}>{city.CityName}</option>)
                   }
                 </select>
               </div>
@@ -175,7 +175,7 @@ const RegisterStudent = () => {
                       <Select
                         isMulti
                         name="colors"
-                        options={canteenProducts.map(i => { return { label: i.Name, value: i.ID } })}
+                        options={canteenProducts.map(i => { return { label: i.ProductName, value: i.ProductID } })}
                         value={value ? value : []}
                         onChange={onChange}
                         classNames={{

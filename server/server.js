@@ -43,6 +43,7 @@ app.get('/', (req, res) => {
 app.use('/uploads', express.static(__dirname + '/uploads'))
 
 
+/* OTHER */
 app.post('/login', (req, res) => {
 
     console.log(req.body)
@@ -82,6 +83,41 @@ app.post('/signup', (req, res) => {
         });
     })
 });
+app.post('/canteen-buy-product', (req, res) => {
+
+    const { studentId } = req.body;
+    const studentBalanceQuery = `SELECT Balance FROM Student WHERE ID=${studentId}`;
+    db.query(studentBalanceQuery, (error, result) => {
+        if (error) return res.json(error);
+
+        const studentBalance = result[0].Balance;
+
+        const { productId } = req.body;
+        const productPriceQuery = `SELECT ProductPrice FROM Canteen WHERE ProductID=${productId}`;
+        db.query(productPriceQuery, (error, result) => {
+            if (error) return res.json(error);
+
+            const productPrice = result[0].ProductPrice;
+
+            if (studentBalance < productPrice)
+                return res.send(false)
+
+            const { buyDate } = req.body;
+            const studentBoughtProductQuery = `INSERT INTO StudentBoughtProducts (StudentID, ProductID, BuyDate) VALUES (${studentId}, ${productId}, '${buyDate}')`;
+            db.query(studentBoughtProductQuery, (error, result) => {
+                if (error) return res.json(error);
+
+                const studentNewBalance = studentBalance - productPrice;
+                const updateStudentBalanceQuery = `UPDATE Student SET Balance=${studentNewBalance} WHERE ID=${studentId}`;
+                db.query(updateStudentBalanceQuery, (error, result) => {
+                    if (error) throw error;
+
+                    return res.send(true);
+                });
+            });
+        })
+    })
+});
 
 
 /* FETCH DATA */
@@ -102,7 +138,13 @@ app.get('/class', (req, res) => {
     })
 })
 app.get('/student', (req, res) => {
-    const sql = "SELECT * FROM Student";
+
+    const sql = `SELECT * 
+        FROM Student 
+        INNER JOIN Class ON Student.ClassID = Class.ClassID
+        INNER JOIN City ON Student.CityID = City.CityID
+        INNER JOIN Parent ON Student.ParentID = Parent.ParentID`
+
     db.query(sql, (err, data) => {
         if (err) return res.json(err);
 
@@ -119,7 +161,7 @@ app.get('/parent', (req, res) => {
 })
 app.get('/teacher', (req, res) => {
 
-    const sql = "SELECT * FROM Teacher, TeacherClasses WHERE Teacher.ID=TeacherClasses.TeacherID"
+    const sql = "SELECT * FROM Teacher, TeacherClasses WHERE Teacher.TeacherID=TeacherClasses.TeacherID"
     db.query(sql, (err, data) => {
         if (err) return res.json(err);
 
@@ -160,7 +202,7 @@ app.get('/class/:id', (req, res) => {
 
     const classId = req.params.id;
 
-    const sql = `SELECT * FROM Class WHERE ID='${classId}'`;
+    const sql = `SELECT * FROM Class WHERE ClassID='${classId}'`;
     db.query(sql, (err, data) => {
         if (err) return res.json(err);
 
@@ -182,7 +224,7 @@ app.get('/parent/:id', (req, res) => {
 
     const parentId = req.params.id;
 
-    const sql = `SELECT * FROM Parent WHERE ID='${parentId}'`;
+    const sql = `SELECT * FROM Parent WHERE ParentID='${parentId}'`;
     db.query(sql, (err, data) => {
         if (err) return res.json(err);
 
@@ -193,7 +235,7 @@ app.get('/teacher/:id', (req, res) => {
 
     const teacherId = req.params.id;
 
-    const sql = `SELECT * FROM Teacher WHERE ID='${teacherId}'`;
+    const sql = `SELECT * FROM Teacher WHERE TeacherID='${teacherId}'`;
     db.query(sql, (err, data) => {
         if (err) return res.json(err);
 
@@ -223,6 +265,34 @@ app.get('/teacher-classes/:id', (req, res) => {
         return res.json(data);
     })
 })
+app.get('/student-attendance', (req, res) => {
+
+    const { ids, startDate, endDate } = req.query;
+
+    const sql = `SELECT *, DATE_FORMAT(date,'%Y-%m-%d') AS Date FROM Attendance WHERE (StudentID IN (${ids.toString()})) AND (Date BETWEEN '${startDate}' AND '${endDate}')`;
+    db.query(sql, (error, data) => {
+        if (error) return res.json(error);
+
+        return res.json(data);
+    })
+})
+app.get('/student-canteen-buy', (req, res) => {
+
+    const { ids } = req.query;
+
+    let sql = `SELECT *
+        FROM StudentBoughtProducts
+        INNER JOIN Canteen ON StudentBoughtProducts.ProductID = Canteen.ProductID`;
+    sql = ids ? sql + ` WHERE (StudentID IN (${ids.toString()}))` : sql;
+
+        console.log(ids)
+        console.log(sql)
+    db.query(sql, (error, data) => {
+        if (error) return res.json(error);
+
+        return res.json(data);
+    })
+})
 
 /* INSERT */
 app.post('/student', upload.single('photo'), (req, res) => {
@@ -231,7 +301,7 @@ app.post('/student', upload.single('photo'), (req, res) => {
     console.log(req.body)
     const { parentName, parentPhoneNumber, parentEmail } = req.body
 
-    const parentSql = `INSERT INTO Parent (Name, PhoneNumber, Email) VALUES ('${parentName}', '${parentPhoneNumber}', '${parentEmail}')`;
+    const parentSql = `INSERT INTO Parent (ParentName, ParentPhoneNumber, ParentEmail) VALUES ('${parentName}', '${parentPhoneNumber}', '${parentEmail}')`;
 
     db.query(parentSql, (error, result) => {
         if (error) throw error;
@@ -246,7 +316,7 @@ app.post('/student', upload.single('photo'), (req, res) => {
             if (error) throw error;
 
             const { restrictedProducts } = req.body
-            if(!restrictedProducts)
+            if (!restrictedProducts)
                 return res.send(true);
 
             const studentId = result.insertId;
@@ -266,7 +336,7 @@ app.post('/teacher', (req, res) => {
 
     const { name } = req.body;
 
-    const teacherSql = `INSERT INTO Teacher (Name) VALUES ('${name}')`;
+    const teacherSql = `INSERT INTO Teacher (TeacherName) VALUES ('${name}')`;
     db.query(teacherSql, (error, result) => {
         if (error) throw error;
         console.log(result.affectedRows + " record(s) Teacher inserted");
@@ -287,7 +357,7 @@ app.post('/teacher', (req, res) => {
 app.post('/class', (req, res) => {
 
     const { name } = req.body;
-    const sql = `INSERT INTO Class (Name) VALUES ('${name}')`;
+    const sql = `INSERT INTO Class (ClassName) VALUES ('${name}')`;
 
     db.query(sql, (err, result) => {
         if (err) throw err;
@@ -298,8 +368,8 @@ app.post('/class', (req, res) => {
 });
 app.post('/canteen', (req, res) => {
 
-    const { name, price } = req.body;
-    const sql = `INSERT INTO Canteen (Name, Price) VALUES ('${name}', '${price}')`;
+    const { productName, productPrice } = req.body;
+    const sql = `INSERT INTO Canteen (ProductName, ProductPrice) VALUES ('${productName}', '${productPrice}')`;
 
     db.query(sql, (err, result) => {
         if (err) throw err;
@@ -350,35 +420,35 @@ app.put('/attendance/:studentId/:date', (req, res) => {
 
 app.post('/attendance', (req, res) => {
     const { studentId, date, status } = req.query;
-  
+
     if (!studentId || !date || !status) {
-      return res.status(400).send('Missing parameters');
+        return res.status(400).send('Missing parameters');
     }
-  
+
     const checkQuery = `SELECT * FROM Attendance WHERE StudentID=${studentId} AND Date='${date}'`;
     db.query(checkQuery, (error, result) => {
-      if (error) return res.status(500).send(err);
-  
-      if (result.length > 0) {
+        if (error) return res.status(500).send(err);
 
-        const updateQuery = `UPDATE Attendance SET Status=${status} WHERE StudentID=${studentId} AND Date='${date}'`;
-        db.query(updateQuery, (error, result) => {
-            if (error) throw error;
+        if (result.length > 0) {
 
-            return res.send(true);
-        });
+            const updateQuery = `UPDATE Attendance SET Status=${status} WHERE StudentID=${studentId} AND Date='${date}'`;
+            db.query(updateQuery, (error, result) => {
+                if (error) throw error;
 
-      } else {
-        
-        const insertQuery = `INSERT INTO Attendance (StudentID, Date, Status) VALUES (${studentId}, '${date}', ${status})`;
-        db.query(insertQuery, (error, result) => {
-            if (error) throw error;
+                return res.send(true);
+            });
 
-            return res.send(true);
-        });
-      }
+        } else {
+
+            const insertQuery = `INSERT INTO Attendance (StudentID, Date, Status) VALUES (${studentId}, '${date}', ${status})`;
+            db.query(insertQuery, (error, result) => {
+                if (error) throw error;
+
+                return res.send(true);
+            });
+        }
     });
-  });
+});
 
 /* UPDATE */
 app.post('/student/:id', upload.single('photo'), (req, res) => {
@@ -399,7 +469,7 @@ app.post('/student/:id', upload.single('photo'), (req, res) => {
             console.log(result.affectedRows + " record(s) StudentRestrictedProducts deleted");
 
             const { restrictedProducts } = req.body;
-            if(!restrictedProducts)
+            if (!restrictedProducts)
                 return res.send(true);
 
             const stdRestrictedProducts = restrictedProducts.map(i => [studentId, i]);
@@ -409,7 +479,7 @@ app.post('/student/:id', upload.single('photo'), (req, res) => {
                 console.log(result.affectedRows + " record(s) StudentRestrictedProducts inserted");
 
                 const { parentId, parentName, parentPhoneNumber, parentEmail } = req.body;
-                const parentSql = `UPDATE Parent SET Name='${parentName}', PhoneNumber='${parentPhoneNumber}', Email='${parentEmail}' WHERE ID='${parentId}'`;
+                const parentSql = `UPDATE Parent SET ParentName='${parentName}', ParentPhoneNumber='${parentPhoneNumber}', ParentEmail='${parentEmail}' WHERE ParentID='${parentId}'`;
                 db.query(parentSql, (error, result) => {
                     if (error) throw error;
                     console.log(result.affectedRows + " record(s) Parent Updated");
@@ -425,7 +495,7 @@ app.put('/teacher/:id', (req, res) => {
     const teacherId = req.params.id;
     const { name } = req.body;
 
-    const teacherSql = `UPDATE Teacher SET Name='${name}' WHERE ID='${teacherId}'`;
+    const teacherSql = `UPDATE Teacher SET TeacherName='${name}' WHERE TeacherID='${teacherId}'`;
     db.query(teacherSql, (error, result) => {
         if (error) throw error;
         console.log(result.affectedRows + " record(s) Teacher updated");
@@ -452,7 +522,7 @@ app.put('/class/:id', (req, res) => {
     const classId = req.params.id;
     const { name } = req.body;
 
-    const sql = `UPDATE Class SET Name='${name}' WHERE ID='${classId}'`;
+    const sql = `UPDATE Class SET ClassName='${name}' WHERE ClassID='${classId}'`;
     db.query(sql, (err, result) => {
         if (err) throw err;
 
@@ -463,9 +533,12 @@ app.put('/class/:id', (req, res) => {
 app.put('/canteen/:id', (req, res) => {
 
     const productId = req.params.id;
-    const { name, price } = req.body;
+    const { productName, productPrice } = req.body;
 
-    const sql = `UPDATE Canteen SET Name='${name}', Price='${price}' WHERE ID='${productId}'`;
+    const sql = `UPDATE Canteen 
+        SET ProductName='${productName}', ProductPrice='${productPrice}' 
+        WHERE ProductID='${productId}'`;
+
     db.query(sql, (err, result) => {
         if (err) throw err;
 
@@ -500,7 +573,7 @@ app.delete('/teacher/:id', (req, res) => {
     db.query(teacherClassesSql, (error, result) => {
         if (error) throw error;
 
-        const teacherSql = `DELETE FROM Teacher WHERE ID='${teacherId}'`;
+        const teacherSql = `DELETE FROM Teacher WHERE TeacherID='${teacherId}'`;
         db.query(teacherSql, (error, result) => {
             if (error) throw error;
 
@@ -513,7 +586,7 @@ app.delete('/class/:id', (req, res) => {
 
     const classId = req.params.id;
 
-    const sql = `DELETE FROM Class WHERE ID='${classId}'`;
+    const sql = `DELETE FROM Class WHERE ClassID='${classId}'`;
     db.query(sql, (error, result) => {
 
         if (error) {
@@ -534,7 +607,7 @@ app.delete('/canteen/:id', (req, res) => {
 
     const productId = req.params.id;
 
-    const sql = `DELETE FROM Canteen WHERE ID='${productId}'`;
+    const sql = `DELETE FROM Canteen WHERE ProductID='${productId}'`;
     db.query(sql, (error, result) => {
 
         if (error) {

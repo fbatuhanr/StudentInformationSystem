@@ -102,15 +102,15 @@ const Classes = () => {
               </div>
               {
                 classes.map((cls, index) =>
-                  <div className="flex items-center gap-x-5 my-1">
+                  <div key={index} className="flex items-center gap-x-5 my-1">
                     <input type="text" placeholder="type here..." className="w-full bg-[#0D0D0D] text-[#A1A1A1] px-4 py-3 rounded-2xl"
-                      defaultValue={cls.Name}
+                      defaultValue={cls.ClassName}
                       ref={(e) => classesRefs.current[index] = e}
                     />
-                    <button type="button" onClick={() => handleRemoveButton(cls.ID)}>
+                    <button type="button" onClick={() => handleRemoveButton(cls.ClassID)}>
                       <FaEraser className="text-2xl" />
                     </button>
-                    <button type="button" onClick={() => handleUpdateButton(cls.ID, index)}>
+                    <button type="button" onClick={() => handleUpdateButton(cls.ClassID, index)}>
                       <FiRefreshCw className="text-2xl" />
                     </button>
                   </div>

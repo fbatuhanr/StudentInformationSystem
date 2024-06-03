@@ -23,7 +23,7 @@ import GuestGuard from "./guards/GuestGuard.jsx"
 
 import DashboardLayout from "./pages/DashboardLayout.jsx"
 
-import Dashboard from "./pages/Dashboard.jsx"
+import Overview from "./pages/Overview.jsx"
 
 import BrowseStudents from "./pages/Student/BrowseStudents.jsx"
 import EditStudent from "./pages/Student/EditStudent.jsx"
@@ -45,7 +45,7 @@ function App() {
   const isLoading = useSelector(({ StatusSlice }) => StatusSlice.isLoading);
 
   return (
-    <div className="bg-[rgb(13,13,13)] text-white font-outfit overflow-x-hidden">
+    <div className="bg-[#0D0D0D] text-white font-outfit overflow-x-hidden">
       <HashRouter>
         <Header />
         <Layout>
@@ -55,7 +55,7 @@ function App() {
             <Route path="/signup" element={<GuestGuard><Signup /></GuestGuard>} />
 
             <Route path="/dashboard" element={<AuthGuard><DashboardLayout /></AuthGuard>}>
-              <Route path="overview" element={<Dashboard />} />
+              <Route path="overview" element={<Overview />} />
 
               <Route path="browse-students" element={<BrowseStudents />} />
               <Route path="register-student" element={<RegisterStudent />} />

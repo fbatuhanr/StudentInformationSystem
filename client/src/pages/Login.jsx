@@ -9,14 +9,15 @@ import { clearUserData, setUser } from "../redux/features/UserSlice";
 import { toast } from 'react-toastify';
 
 import ellipseSmall from "../assets/ellipse-small.png"
+import HumanImg3 from "../assets/human-3.png"
 
 
 const Login = () => {
 
     const dispatch = useDispatch();
 
-    const [username, setUsername] = useState("emreolca");
-    const [password, setPassword] = useState("123");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -71,7 +72,7 @@ const Login = () => {
                         </button>
                     </div>
                     <div className="absolute top-4 -right-24 mr-2 md:-right-20 md:-mr-0.5">
-                        <img src={null} className="w-56" />
+                        <img src={HumanImg3} className="w-56" />
                     </div>
                 </div>
             </div>
