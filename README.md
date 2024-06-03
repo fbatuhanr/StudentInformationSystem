@@ -2,8 +2,9 @@
 
 Welcome to the Student Information System! This comprehensive solution is designed to streamline the administration of school operations, including student and teacher management, class management, canteen module, attendance tracking, and more. Built with a modern tech stack, the system provides a user-friendly interface and robust backend to support the needs of educational institutions.
 
-"I personally crafted all the designs for this project using Figma, showcasing my skills as both a front-end developer and a designer."
-[[figma link](https://www.figma.com/design/dDpNPL5K7R1woMJON6ckFw/student-information-system)]
+"I personally crafted all the designs for this project using Figma, showcasing my skills as both a front-end developer and a designer." 
+<br/>
+[figma link](https://www.figma.com/design/dDpNPL5K7R1woMJON6ckFw/student-information-system)
 
 ## Features
 
