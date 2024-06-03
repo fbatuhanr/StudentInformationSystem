@@ -1,4 +1,6 @@
 const express = require('express');
+const dotenv = require('dotenv')
+dotenv.config()
 const mysql = require('mysql');
 const mysqlErrorKeys = require('mysql-error-keys');
 const cors = require('cors');
@@ -29,6 +31,15 @@ app.listen(process.env.PORT || 4000, () => {
 })
 
 const db = mysql.createConnection({
+    host: process.env.MYSQL_ADDON_HOST,
+    port: process.env.MYSQL_ADDON_PORT,
+    user: process.env.MYSQL_ADDON_USER,
+    password: process.env.MYSQL_ADDON_PASSWORD,
+    database: process.env.MYSQL_ADDON_DB,
+    multipleStatements: true
+})
+/*  for localhost
+const db = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
@@ -36,6 +47,7 @@ const db = mysql.createConnection({
     database: "StudentInformationSystem",
     multipleStatements: true
 })
+*/
 
 app.get('/', (req, res) => {
     return res.json("From Backend Side")
