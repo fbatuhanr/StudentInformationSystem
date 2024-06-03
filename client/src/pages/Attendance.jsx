@@ -216,7 +216,7 @@ const Attendance = () => {
                       {student.Name}
                     </span>
                     <span>
-                      {classes && classes.find(i => i.ID == student.ClassID)?.Name}
+                      {classes && classes.find(i => i.ClassID == student.ClassID)?.ClassName}
                     </span>
                     <span>
                       {mysqlDate(date)}
