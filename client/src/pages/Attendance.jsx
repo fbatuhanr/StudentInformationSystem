@@ -243,7 +243,7 @@ const Attendance = () => {
                       </div>
 
                       <div className="mt-1">
-                        <button type="button" className="w-full px-2 py-1 text-white bg-[#6841f2] hover:bg-[#4725bc] rounded">Send QR to Parent</button>
+                        <button type="button" className="w-full px-2 py-1 text-white bg-[#6841f2] hover:bg-[#4725bc] rounded">Send QR to Student</button>
                       </div>
                     </div>
                   </div>

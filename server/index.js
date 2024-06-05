@@ -30,6 +30,7 @@ app.listen(process.env.PORT || 4000, () => {
     console.log("listening")
 })
 
+/*
 const db = mysql.createConnection({
     host: process.env.MYSQL_ADDON_HOST,
     port: process.env.MYSQL_ADDON_PORT,
@@ -38,7 +39,8 @@ const db = mysql.createConnection({
     database: process.env.MYSQL_ADDON_DB,
     multipleStatements: true
 })
-/*  for localhost
+*/
+
 const db = mysql.createConnection({
     host: "localhost",
     port: 3306,
@@ -47,7 +49,7 @@ const db = mysql.createConnection({
     database: "StudentInformationSystem",
     multipleStatements: true
 })
-*/
+
 
 app.get('/', (req, res) => {
     return res.json("From Backend Side")
@@ -297,8 +299,8 @@ app.get('/student-canteen-buy', (req, res) => {
         INNER JOIN Canteen ON StudentBoughtProducts.ProductID = Canteen.ProductID`;
     sql = ids ? sql + ` WHERE (StudentID IN (${ids.toString()}))` : sql;
 
-        console.log(ids)
-        console.log(sql)
+    console.log(ids)
+    console.log(sql)
     db.query(sql, (error, data) => {
         if (error) return res.json(error);
 
@@ -564,16 +566,26 @@ app.delete('/student/:id', (req, res) => {
 
     const studentId = req.params.id;
 
-    const stdRestrictedProductsSql = `DELETE FROM StudentRestrictedProducts WHERE StudentID='${studentId}'`;
-    db.query(stdRestrictedProductsSql, (error, result) => {
-        if (error) throw error;
+    const stdRestrictedProductsDeleteQuery = `DELETE FROM StudentRestrictedProducts WHERE StudentID='${studentId}'`;
+    db.query(stdRestrictedProductsDeleteQuery, (error, result) => {
+        if (error) return res.json(error);
 
-        const studentSql = `DELETE FROM Student WHERE ID='${studentId}'`;
-        db.query(studentSql, (error, result) => {
-            if (error) throw error;
+        const stdAttendancesDeleteQuery = `DELETE FROM Attendance WHERE StudentID='${studentId}'`;
+        db.query(stdAttendancesDeleteQuery, (error, result) => {
+            if (error) return res.json(error);
 
-            console.log("Number of records deleted: " + result.affectedRows);
-            return res.send(true);
+            const stBoughtProductsDeleteQuery = `DELETE FROM StudentBoughtProducts WHERE StudentID='${studentId}'`;
+            db.query(stBoughtProductsDeleteQuery, (error, result) => {
+                if (error) return res.json(error);
+
+                const studentDeleteSql = `DELETE FROM Student WHERE ID='${studentId}'`;
+                db.query(studentDeleteSql, (error, result) => {
+                    if (error) return res.json(error);
+
+                    console.log("Number of records deleted: " + result.affectedRows);
+                    return res.send(true);
+                });
+            });
         });
     });
 });
